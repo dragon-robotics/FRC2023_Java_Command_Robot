@@ -11,7 +11,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import frc.robot.Constants;
 
 public class DrivetrainSubsystem extends SubsystemBase {
@@ -19,10 +19,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
   // Declare subsystem attribute/components //
 
   // Motor Controllers //
-  WPI_TalonFX m_talonLeftLead = new WPI_TalonFX(Constants.TALONFX_LEFT_TOP);
-  WPI_TalonFX m_talonLeftFollow = new WPI_TalonFX(Constants.TALONFX_LEFT_BOTTOM);
-  WPI_TalonFX m_talonRightLead = new WPI_TalonFX(Constants.TALONFX_RIGHT_TOP);
-  WPI_TalonFX m_talonRightFollow = new WPI_TalonFX(Constants.TALONFX_RIGHT_BOTTOM);
+  WPI_TalonSRX m_talonLeftLead = new WPI_TalonSRX(Constants.MOTOR_LEFT_TOP);
+  WPI_TalonSRX m_talonLeftFollow = new WPI_TalonSRX(Constants.MOTOR_LEFT_BOTTOM);
+  WPI_TalonSRX m_talonRightLead = new WPI_TalonSRX(Constants.MOTOR_RIGHT_TOP);
+  WPI_TalonSRX m_talonRightFollow = new WPI_TalonSRX(Constants.MOTOR_RIGHT_BOTTOM);
   DifferentialDrive m_drive = new DifferentialDrive(m_talonLeftLead, m_talonRightLead);
 
   // Gyro 
@@ -56,8 +56,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
     m_talonRightFollow.setInverted(InvertType.FollowMaster);
 
     // Set our lead motor's rotation orientations //
-    m_talonLeftLead.setInverted(TalonFXInvertType.CounterClockwise);
-    m_talonRightLead.setInverted(TalonFXInvertType.Clockwise);
+    m_talonLeftLead.setInverted(InvertType.None);
+    m_talonRightLead.setInverted(InvertType.InvertMotorOutput);
   }
 
   // Drive Modes //
