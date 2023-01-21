@@ -7,9 +7,11 @@ package frc.robot;
 import frc.robot.AutoLoader.AutoCommand;
 import frc.robot.commands.ArcadeDriveCommand;
 import frc.robot.commands.CommunityExitCommand;
+import frc.robot.commands.TalonSRXTesting;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 /**
@@ -25,14 +27,16 @@ public class RobotContainer {
   // Replace with CommandPS4Controller or CommandJoystick if needed
   // Joystick - 1st driver (driver) = channel 0, 2nd driver (operator) = channel 1
   private final Joystick m_driverController = new Joystick(Constants.DRIVER);
-
+  private final JoystickButton m_testFalconsButton = new JoystickButton(m_driverController, Constants.BTN_A);
   // Create the auto loader class to load everything for us //
   private final AutoLoader m_autoLoader = new AutoLoader();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
+
     configureBindings();
+    configureButtonBindings();
   }
 
   /**
@@ -44,8 +48,15 @@ public class RobotContainer {
    * PS4} controllers or {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight
    * joysticks}.
    */
+  private void configureButtonBindings() {
+    // Toggles when the button is held down
+    // m_testFalconsButton.whileTrue(new TalonSRXTesting(m_drivetrainSubsystem));
+
+    // Toggles on or off when the button is pressed
+    m_testFalconsButton.toggleOnTrue(new TalonSRXTesting(m_drivetrainSubsystem));
+  }
+
   private void configureBindings() {
-    
 
     // Set default command to arcade drive when in teleop
     m_drivetrainSubsystem.setDefaultCommand(
@@ -57,6 +68,7 @@ public class RobotContainer {
             () -> m_driverController.getRawButton(Constants.BUMPER_RIGHT) // reverse
         ));
     
+
     // // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
     // new Trigger(m_drivetrainSubsystem::exampleCondition)
     //     .onTrue(new ExampleCommand(m_drivetrainSubsystem));
