@@ -6,8 +6,10 @@ package frc.robot;
 
 import frc.robot.AutoLoader.AutoCommand;
 import frc.robot.commands.ArcadeDriveCommand;
+import frc.robot.commands.IntakeTestCommand;
 import frc.robot.commands.CommunityExitCommand;
 import frc.robot.subsystems.DrivetrainSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -21,6 +23,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
+  private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   // Joystick - 1st driver (driver) = channel 0, 2nd driver (operator) = channel 1
@@ -56,6 +59,13 @@ public class RobotContainer {
             () -> m_driverController.getRawAxis(Constants.TRIGGER_LEFT), // throttle
             () -> m_driverController.getRawButton(Constants.BUMPER_RIGHT) // reverse
         ));
+    
+    m_intakeSubsystem.setDefaultCommand(
+      new IntakeTestCommand(
+          m_intakeSubsystem,
+          () -> m_driverController.getRawButton(Constants.BTN_A), // extend
+          () -> m_driverController.getRawButton(Constants.BTN_B) // retract
+      ));
     
     // // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
     // new Trigger(m_drivetrainSubsystem::exampleCondition)
