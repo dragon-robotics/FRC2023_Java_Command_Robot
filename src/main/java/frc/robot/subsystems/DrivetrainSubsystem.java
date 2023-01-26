@@ -5,11 +5,16 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
+import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.sensors.WPI_Pigeon2;
@@ -29,6 +34,9 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
   // Gyro //
   WPI_Pigeon2 m_gyro = new WPI_Pigeon2(0);
+
+  // Odometry class for tracking robot pose //
+  private final DifferentialDriveOdometry m_odometry;
 
   /** Creates a new DrivetrainSubsystem. */
   public DrivetrainSubsystem() {
@@ -59,8 +67,25 @@ public class DrivetrainSubsystem extends SubsystemBase {
     m_talonRightFollow.setInverted(InvertType.FollowMaster);
 
     // Set our lead motor's rotation orientations //
-    m_talonLeftLead.setInverted(InvertType.None);
-    m_talonRightLead.setInverted(InvertType.InvertMotorOutput);
+    m_talonLeftLead.setInverted(TalonFXInvertType.CounterClockwise);
+    m_talonRightLead.setInverted(TalonFXInvertType.Clockwise);
+
+    // Configure encoder readings on the TalonFX //
+    m_talonLeftLead.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 0);
+    m_talonRightLead.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 0);
+
+    // Reset encoders to 0 //
+    resetEncoders();
+    
+    // Intialize all gyro readings to 0 //
+    zeroHeading();
+
+    // Initialize Robot Odometry //
+    m_odometry = new DifferentialDriveOdometry(
+      m_gyro.getRotation2d(),
+      getDistance(m_talonLeftLead),
+      getDistance(m_talonRightLead),
+      null);
   }
 
   // Drive Modes //
@@ -68,9 +93,105 @@ public class DrivetrainSubsystem extends SubsystemBase {
     m_drive.arcadeDrive(speed, rotation);
   }
 
+  public void tankDrive(double leftSpeed, double rightSpeed) {
+    m_drive.tankDrive(leftSpeed, rightSpeed);
+  }
+  
+  public void tankDriveVolts(double leftVolts, double rightVolts){
+    m_talonLeftLead.setVoltage(leftVolts);   // Set voltage for left motor
+    m_talonRightLead.setVoltage(rightVolts);  // Set voltage for right motor
+    m_drive.feed();                   // Feed the motor safety object, stops the motor if anything goes wrong
+  }
+
+  public void setMaxOutput(double maxOutput) {
+    m_drive.setMaxOutput(maxOutput);
+  }
+
+  // Encoder Controls/Readings //
+  public DifferentialDriveWheelSpeeds getWheelSpeeds(){
+    double leftSpeed = m_talonLeftLead.getSelectedSensorVelocity() * Constants.ENCODER_DISTANCE_PER_PULSE * 10;
+    double rightSpeed = m_talonRightLead.getSelectedSensorVelocity() * Constants.ENCODER_DISTANCE_PER_PULSE * 10;  // Need to invert the results
+    return new DifferentialDriveWheelSpeeds(leftSpeed, rightSpeed);
+  }
+
+  public void resetEncoders(){
+    m_talonLeftLead.setSelectedSensorPosition(0.0, 0, 0);
+    m_talonRightLead.setSelectedSensorPosition(0.0, 0, 0);
+  }
+
+  public double getDistance(WPI_TalonFX motor){
+    return motor.getSelectedSensorPosition() * Constants.ENCODER_DISTANCE_PER_PULSE;
+  }
+
+  // Gets the average encoder distance in meters //
+  public double getAverageEncoderDistance() {
+    return (getDistance(m_talonLeftLead) + getDistance(m_talonRightLead)) / 2.0;
+  }
+
+  // Gyro Controls/Readings //
+  
+  /** Zeroes the heading of the robot. */
+  public void zeroHeading(){
+    m_gyro.reset();   // Resets the Gyro
+  }
+
+  /**
+   * Returns the heading of the robot.
+   *
+   * @return the robot's heading in degrees, from -180 to 180
+   */
+  public double getHeading() {
+    return m_gyro.getRotation2d().getDegrees();
+  }
+
+  /**
+   * Returns the turn rate of the robot.
+   *
+   * @return The turn rate of the robot, in degrees per second
+   */
+  public double getTurnRate() {
+    return m_gyro.getRate();
+  }
+
+  public Pose2d getPose() {
+    return m_odometry.getPoseMeters();
+  }
+
+  public void resetOdometry(Pose2d pose){
+    resetEncoders();
+    m_odometry.resetPosition(m_gyro.getRotation2d(), getDistance(m_talonLeftLead), getDistance(m_talonRightLead), pose);
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    // This method will be called once per scheduler run
+    m_odometry.update(
+        m_gyro.getRotation2d(), getDistance(m_talonLeftLead), getDistance(m_talonRightLead));
+
+    // Added code to record X and Y odometry data //
+    // var translation = m_odometry.getPoseMeters().getTranslation();
+    // m_xEntry.setNumber(translation.getX());
+    // m_yEntry.setNumber(translation.getY());
+
+    // double degree = getHeading();
+    // m_angleEntry.setDouble(degree);
+
+    // // Output raw encoder values //
+    // m_leftEncoderEntry.setDouble(m_talonLeftLead.getSelectedSensorPosition());
+    // m_rightEncoderEntry.setDouble(m_talonRightLead.getSelectedSensorPosition());
+
+    // // Output encoder values converted to distance //
+    // m_leftEncoderDistanceEntry.setDouble(getDistance(m_talonLeftLead));
+    // m_rightEncoderDistanceEntry.setDouble(getDistance(m_talonRightLead));
+
+    // // Output raw encoder velocity values //
+    // m_leftEncoderVelocityEntry.setDouble(m_talonLeftLead.getSelectedSensorVelocity());
+    // m_rightEncoderVelocityEntry.setDouble(m_talonRightLead.getSelectedSensorVelocity());
+
+    // // Output raw wheel speed values //
+    // m_leftEncoderWheelSpeedEntry.setDouble(getWheelSpeeds().leftMetersPerSecond);
+    // m_rightEncoderWheelSpeedEntry.setDouble(getWheelSpeeds().rightMetersPerSecond);
   }
 
   @Override
