@@ -6,10 +6,10 @@ package frc.robot;
 
 import frc.robot.AutoLoader.AutoCommand;
 import frc.robot.commands.ArcadeDriveCommand;
-import frc.robot.commands.IntakeTestCommand;
+import frc.robot.commands.ClawTestCommand;
 import frc.robot.commands.CommunityExitCommand;
 import frc.robot.subsystems.DrivetrainSubsystem;
-import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.ClawSubsystem;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -23,7 +23,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
-  private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
+  ClawSubsystem m_clawSubsystem = new ClawSubsystem();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   // Joystick - 1st driver (driver) = channel 0, 2nd driver (operator) = channel 1
@@ -48,8 +48,6 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    
-
     // Set default command to arcade drive when in teleop
     m_drivetrainSubsystem.setDefaultCommand(
         new ArcadeDriveCommand(
@@ -60,9 +58,9 @@ public class RobotContainer {
             () -> m_driverController.getRawButton(Constants.BUMPER_RIGHT) // reverse
         ));
     
-    m_intakeSubsystem.setDefaultCommand(
-      new IntakeTestCommand(
-          m_intakeSubsystem,
+    m_clawSubsystem.setDefaultCommand(
+      new ClawTestCommand(
+          m_clawSubsystem,
           () -> m_driverController.getRawButton(Constants.BTN_A), // extend
           () -> m_driverController.getRawButton(Constants.BTN_B) // retract
       ));

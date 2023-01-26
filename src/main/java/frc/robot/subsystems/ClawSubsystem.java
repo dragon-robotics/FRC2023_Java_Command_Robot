@@ -10,15 +10,15 @@ import static edu.wpi.first.wpilibj.DoubleSolenoid.Value.*;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class IntakeSubsystem extends SubsystemBase {
+public class ClawSubsystem extends SubsystemBase {
   
   DoubleSolenoid m_doublePCM1 = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 0, 1);
   DoubleSolenoid m_doublePCM2 = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 2, 3);
 
   Compressor pcmCompressor = new Compressor(0, PneumaticsModuleType.CTREPCM);
 
-  /** Creates a new IntakeSubsystem. */
-  public IntakeSubsystem() {}
+  /** Creates a new ClawSubsystem. */
+  public ClawSubsystem() {}
 
   @Override
   public void periodic() {

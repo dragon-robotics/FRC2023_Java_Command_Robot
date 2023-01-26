@@ -4,47 +4,47 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.ClawSubsystem;
 
 import java.util.function.Supplier;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class IntakeTestCommand extends CommandBase {
+public class ClawTestCommand extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final IntakeSubsystem m_intake;
+  private final ClawSubsystem m_claw;
   private final Supplier<Boolean> m_extend;
   private final Supplier<Boolean> m_retract;
   
-  /** Creates a new IntakeTestCommand. */
-  public IntakeTestCommand(
-    IntakeSubsystem intake,
+  /** Creates a new ClawTestCommand. */
+  public ClawTestCommand(
+    ClawSubsystem claw,
     Supplier<Boolean> extend,
     Supplier<Boolean> retract
   ) {
-    m_intake = intake;
+    m_claw = claw;
     m_extend = extend;
     m_retract = retract;
 
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(intake);
+    addRequirements(claw);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_intake.pneumaticsNeutral();
+    m_claw.pneumaticsNeutral();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     if (m_extend.get()) {
-      m_intake.pneumaticsExtend();
+      m_claw.pneumaticsExtend();
     } else if (m_retract.get()) {
-      m_intake.pneumaticsRetract();
+      m_claw.pneumaticsRetract();
     } else {
-      m_intake.pneumaticsNeutral();
+      m_claw.pneumaticsNeutral();
     }
   }
 

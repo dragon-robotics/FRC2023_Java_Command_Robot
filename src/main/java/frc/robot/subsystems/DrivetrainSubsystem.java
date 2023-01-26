@@ -12,6 +12,8 @@ import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.ctre.phoenix.sensors.WPI_Pigeon2;
+
 import frc.robot.Constants;
 
 public class DrivetrainSubsystem extends SubsystemBase {
@@ -25,7 +27,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
   WPI_TalonFX m_talonRightFollow = new WPI_TalonFX(Constants.MOTOR_RIGHT_BOTTOM);
   DifferentialDrive m_drive = new DifferentialDrive(m_talonLeftLead, m_talonRightLead);
 
-  // Gyro 
+  // Gyro //
+  WPI_Pigeon2 m_gyro = new WPI_Pigeon2(0);
 
   /** Creates a new DrivetrainSubsystem. */
   public DrivetrainSubsystem() {
