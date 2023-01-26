@@ -14,8 +14,9 @@ public class AutoLoader {
      * Enumeration for the possible autos that we'll create
      */
     public enum AutoCommand {
-        NONE, // Does Nothing
-        COMMUNITY_EXIT, // Just leaves the tarmac without scoring
+        NONE,               // Does Nothing
+        COMMUNITY_EXIT,     // Just leaves the tarmac without scoring
+        EXAMPLE_TRAJECTORY, // Run the example trajectory
     }
 
     private SendableChooser<AutoCommand> m_autoChooser;
@@ -32,7 +33,10 @@ public class AutoLoader {
 
         // Default option is to always have no auto command running //
         // m_autoChooser.setDefaultOption("None", AutoCommand.NONE);
-        m_autoChooser.setDefaultOption("Community Zone Exit", AutoCommand.COMMUNITY_EXIT);
+        m_autoChooser.setDefaultOption("None", AutoCommand.NONE);
+
+        m_autoChooser.addOption("Community Exit", AutoCommand.COMMUNITY_EXIT);
+        m_autoChooser.addOption("Example Trajectory", AutoCommand.EXAMPLE_TRAJECTORY);
 
         // Initialize the rest of the options //
         SmartDashboard.putData(m_autoChooser);
