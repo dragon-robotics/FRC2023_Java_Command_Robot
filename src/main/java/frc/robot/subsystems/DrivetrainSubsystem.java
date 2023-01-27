@@ -84,8 +84,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
     m_odometry = new DifferentialDriveOdometry(
       m_gyro.getRotation2d(),
       getDistance(m_talonLeftLead),
-      getDistance(m_talonRightLead),
-      null);
+      getDistance(m_talonRightLead)
+    );
   }
 
   // Drive Modes //
