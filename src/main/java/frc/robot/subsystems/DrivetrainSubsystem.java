@@ -52,7 +52,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     m_talonRightLead.set(ControlMode.PercentOutput, 0);
     m_talonRightFollow.set(ControlMode.PercentOutput, 0);
 
-    // Set neutral mode to brake on all motors //
+    // Set neutral mode to coast on all motors //
     m_talonLeftLead.setNeutralMode(NeutralMode.Coast);
     m_talonLeftFollow.setNeutralMode(NeutralMode.Coast);
     m_talonRightLead.setNeutralMode(NeutralMode.Coast);

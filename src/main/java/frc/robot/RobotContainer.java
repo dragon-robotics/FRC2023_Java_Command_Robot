@@ -6,9 +6,11 @@ package frc.robot;
 
 import frc.robot.AutoLoader.AutoCommand;
 import frc.robot.commands.ArcadeDriveCommand;
+import frc.robot.commands.ArmTestCommand;
 import frc.robot.commands.ClawTestCommand;
 import frc.robot.commands.CommunityExitCommand;
 import frc.robot.subsystems.DrivetrainSubsystem;
+import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClawSubsystem;
 
 import java.util.List;
@@ -38,11 +40,13 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
-  ClawSubsystem m_clawSubsystem = new ClawSubsystem();
+  private final ClawSubsystem m_clawSubsystem = new ClawSubsystem();
+  private final ArmSubsystem m_armSubsystem = new ArmSubsystem();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   // Joystick - 1st driver (driver) = channel 0, 2nd driver (operator) = channel 1
   private final Joystick m_driverController = new Joystick(Constants.DRIVER);
+  private final Joystick m_operatorController = new Joystick(Constants.OPERATOR);
 
   // Create the auto loader class to load everything for us //
   private final AutoLoader m_autoLoader = new AutoLoader();
@@ -79,6 +83,14 @@ public class RobotContainer {
           () -> m_driverController.getRawButton(Constants.BTN_A), // extend
           () -> m_driverController.getRawButton(Constants.BTN_B) // retract
       ));
+
+    m_armSubsystem.setDefaultCommand(
+      new ArmTestCommand(
+        m_armSubsystem,
+        () -> m_driverController.getRawAxis(Constants.TRIGGER_LEFT),  // Rotate
+        () -> m_driverController.getRawAxis(Constants.TRIGGER_RIGHT)  // Counter Rotation
+      )
+    );
     
     // // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
     // new Trigger(m_drivetrainSubsystem::exampleCondition)
