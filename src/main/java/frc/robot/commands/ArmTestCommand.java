@@ -21,10 +21,11 @@ public class ArmTestCommand extends CommandBase {
     Supplier<Double> rotationSpeed,
     Supplier<Double> counterRotationSpeed
   ) {
-    // Use addRequirements() here to declare subsystem dependencies.
     m_arm = arm;
     m_rotationSpeed = rotationSpeed;
     m_counterRotationSpeed = counterRotationSpeed;
+    // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(arm);
   }
 
   // Called when the command is initially scheduled.

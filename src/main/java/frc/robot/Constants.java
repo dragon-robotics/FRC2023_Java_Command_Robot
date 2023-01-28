@@ -48,9 +48,9 @@ public final class Constants {
 
   // Drivetrain //
   public static final int MOTOR_LEFT_TOP = 2;
-  public static final int MOTOR_LEFT_BOTTOM = 1;
+  public static final int MOTOR_LEFT_BOTTOM = 3;
   public static final int MOTOR_RIGHT_TOP = 4;
-  public static final int MOTOR_RIGHT_BOTTOM = 3;
+  public static final int MOTOR_RIGHT_BOTTOM = 1;
 
   // Intake //
   public static final int NEO_INTAKE = 3;
