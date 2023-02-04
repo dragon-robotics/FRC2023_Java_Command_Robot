@@ -81,14 +81,16 @@ public class RobotContainer {
       new ClawTestCommand(
           m_clawSubsystem,
           () -> m_driverController.getRawButton(Constants.BTN_A), // extend
-          () -> m_driverController.getRawButton(Constants.BTN_B) // retract
+          () -> m_driverController.getRawButton(Constants.BTN_B)  // retract
       ));
 
     m_armSubsystem.setDefaultCommand(
       new ArmTestCommand(
         m_armSubsystem,
         () -> m_driverController.getRawAxis(Constants.TRIGGER_LEFT),  // Rotate
-        () -> m_driverController.getRawAxis(Constants.TRIGGER_RIGHT)  // Counter Rotation
+        () -> m_driverController.getRawAxis(Constants.TRIGGER_RIGHT), // Counter Rotation
+        () -> m_driverController.getRawButton(Constants.BTN_X),       // extend
+        () -> m_driverController.getRawButton(Constants.BTN_Y)        // retract
       )
     );
     

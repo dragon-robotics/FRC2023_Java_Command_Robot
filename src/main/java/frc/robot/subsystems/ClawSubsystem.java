@@ -12,10 +12,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ClawSubsystem extends SubsystemBase {
   
-  DoubleSolenoid m_doublePCM1 = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 0, 1);
-  DoubleSolenoid m_doublePCM2 = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 2, 3);
-
-  Compressor pcmCompressor = new Compressor(0, PneumaticsModuleType.CTREPCM);
+  DoubleSolenoid m_doublePCM3 = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 4, 5);
 
   /** Creates a new ClawSubsystem. */
   public ClawSubsystem() {}
@@ -27,29 +24,16 @@ public class ClawSubsystem extends SubsystemBase {
 
   // Intake pneumatics commands
   public void pneumaticsExtend() {
-    m_doublePCM1.set(kForward);
-    m_doublePCM2.set(kForward);
+    m_doublePCM3.set(kForward);
 
   }
 
   public void pneumaticsRetract() {
-    m_doublePCM1.set(kReverse);
-    m_doublePCM2.set(kReverse);
+    m_doublePCM3.set(kReverse);
 
   }
 
   public void pneumaticsNeutral() {
-    m_doublePCM1.set(kOff);
-    m_doublePCM2.set(kOff);
-
+    m_doublePCM3.set(kOff);
   }
-
-  public void compressorOff() {
-    pcmCompressor.disable();
-  }
-
-  public void compressorOn() {
-    pcmCompressor.enableDigital();
-  }
-
 }

@@ -14,16 +14,22 @@ public class ArmTestCommand extends CommandBase {
   private final ArmSubsystem m_arm;
   private final Supplier<Double> m_rotationSpeed;
   private final Supplier<Double> m_counterRotationSpeed;
+  private final Supplier<Boolean> m_extend;
+  private final Supplier<Boolean> m_retract;
 
   /** Creates a new ArmTestCommand. */
   public ArmTestCommand(
     ArmSubsystem arm,
     Supplier<Double> rotationSpeed,
-    Supplier<Double> counterRotationSpeed
+    Supplier<Double> counterRotationSpeed,
+    Supplier<Boolean> extend,
+    Supplier<Boolean> retract
   ) {
     m_arm = arm;
     m_rotationSpeed = rotationSpeed;
     m_counterRotationSpeed = counterRotationSpeed;
+    m_extend = extend;
+    m_retract = retract;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(arm);
   }
@@ -36,6 +42,13 @@ public class ArmTestCommand extends CommandBase {
   @Override
   public void execute() {
     m_arm.rotateArm(m_rotationSpeed.get() - m_counterRotationSpeed.get());
+    if (m_extend.get()) {
+      m_arm.pneumaticsExtend();
+    } else if (m_retract.get()) {
+      m_arm.pneumaticsRetract();
+    } else {
+      m_arm.pneumaticsNeutral();
+    }
   }
 
   // Called once the command ends or is interrupted.
