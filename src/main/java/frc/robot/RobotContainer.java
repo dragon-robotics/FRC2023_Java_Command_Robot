@@ -46,15 +46,18 @@ public class RobotContainer {
   // Replace with CommandPS4Controller or CommandJoystick if needed
   // Joystick - 1st driver (driver) = channel 0, 2nd driver (operator) = channel 1
   private final Joystick m_driverController = new Joystick(Constants.DRIVER);
-  private final Joystick m_operatorController = new Joystick(Constants.OPERATOR);
+  // private final Joystick m_operatorController = new Joystick(Constants.OPERATOR);
 
   // Create the auto loader class to load everything for us //
   private final AutoLoader m_autoLoader = new AutoLoader();
+
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
+
+    // Initialize competetition shuffleboard
   }
 
   /**

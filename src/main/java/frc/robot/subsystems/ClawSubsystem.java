@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class ClawSubsystem extends SubsystemBase {
   
   DoubleSolenoid m_doublePCM3 = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 4, 5);
+  Compressor pcmCompressor = new Compressor(0, PneumaticsModuleType.CTREPCM);
 
   /** Creates a new ClawSubsystem. */
   public ClawSubsystem() {}
@@ -35,5 +36,9 @@ public class ClawSubsystem extends SubsystemBase {
 
   public void pneumaticsNeutral() {
     m_doublePCM3.set(kOff);
+  }
+
+  public void compressorOff() {
+    
   }
 }
