@@ -76,6 +76,12 @@ public final class Constants {
   public static final double ENCODER_DISTANCE_PER_PULSE = (WHEEL_CIRCUMFERENCE_METERS)
       / ((double) ENCODER_CPR * GEAR_RATIO);
 
+  // Auto Balance Constants //
+  public static final double AUTO_BALANCED_P = 0.5;
+  public static final double AUTO_BALANCED_D = 0.01;
+  public static final double AUTO_BALANCED_DEG_TOL = 1;
+  public static final double AUTO_BALANCED_DEG_PER_S_TOL = 0.25;
+
   // Differential Drive Kinematics //
   public static final DifferentialDriveKinematics DIFF_DRIVE_KINEMATICS = new DifferentialDriveKinematics(
       TRACK_WIDTH_METERS);

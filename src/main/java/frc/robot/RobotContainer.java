@@ -9,9 +9,11 @@ import frc.robot.commands.ArcadeDriveCommand;
 import frc.robot.commands.ArmTestCommand;
 import frc.robot.commands.ClawTestCommand;
 import frc.robot.commands.CommunityExitCommand;
+import frc.robot.commands.IntakeConeDownCommand;
+import frc.robot.commands.IntakeConeUpCommand;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.ArmSubsystem;
-import frc.robot.subsystems.ClawSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 
 import java.util.List;
 
@@ -29,6 +31,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 /**
@@ -40,12 +43,15 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
-  private final ClawSubsystem m_clawSubsystem = new ClawSubsystem();
+  private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
   private final ArmSubsystem m_armSubsystem = new ArmSubsystem();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   // Joystick - 1st driver (driver) = channel 0, 2nd driver (operator) = channel 1
   private final Joystick m_driverController = new Joystick(Constants.DRIVER);
+  private final Joystick m_operatorController = new Joystick(Constants.OPERATOR);
+  private final JoystickButton m_intakeConeUpButton = new JoystickButton(m_operatorController, Constants.BTN_A);
+  private final JoystickButton m_intakeConeDownButton = new JoystickButton(m_operatorController, Constants.BTN_B);
   // private final Joystick m_operatorController = new Joystick(Constants.OPERATOR);
 
   // Create the auto loader class to load everything for us //
@@ -80,12 +86,8 @@ public class RobotContainer {
             () -> m_driverController.getRawButton(Constants.BUMPER_RIGHT) // reverse
         ));
     
-    m_clawSubsystem.setDefaultCommand(
-      new ClawTestCommand(
-          m_clawSubsystem,
-          () -> m_driverController.getRawButton(Constants.BTN_A), // extend
-          () -> m_driverController.getRawButton(Constants.BTN_B)  // retract
-      ));
+    m_intakeConeDownButton.whileTrue(new IntakeConeDownCommand(m_intakeSubsystem));
+    m_intakeConeUpButton.whileTrue(new IntakeConeUpCommand(m_intakeSubsystem));
 
     m_armSubsystem.setDefaultCommand(
       new ArmTestCommand(
@@ -96,6 +98,7 @@ public class RobotContainer {
         () -> m_driverController.getRawButton(Constants.BTN_Y)        // retract
       )
     );
+
     
     // // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
     // new Trigger(m_drivetrainSubsystem::exampleCondition)
