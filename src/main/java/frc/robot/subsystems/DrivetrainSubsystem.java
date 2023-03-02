@@ -143,6 +143,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
     return m_gyro.getRotation2d().getDegrees();
   }
 
+  public double getPitch() {
+    return m_gyro.getPitch();
+  }
+
   /**
    * Returns the turn rate of the robot.
    *
