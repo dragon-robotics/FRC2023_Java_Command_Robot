@@ -7,20 +7,27 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import static edu.wpi.first.wpilibj.DoubleSolenoid.Value.*;
-import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class ArmSubsystem extends SubsystemBase {
-  WPI_TalonFX m_talonArmMotor = new WPI_TalonFX(6);
+public class ArmWristSubsystem extends SubsystemBase {
+    
+  /* Arm Motor */
+  private final WPI_TalonFX m_talonArmMotor = new WPI_TalonFX(6);
+  
+  /* Wrist Motor */
+  private final CANSparkMax m_wristMotor = new CANSparkMax(0, MotorType.kBrushless);
 
-  DoubleSolenoid m_doublePCM1 = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 0, 1);
-  DoubleSolenoid m_doublePCM2 = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 2, 3);
+  /* Intake Motor */
+  private final CANSparkMax m_intakeMotorLeft = new CANSparkMax(0, MotorType.kBrushless);
+  private final CANSparkMax m_intakeMotorRight = new CANSparkMax(0, MotorType.kBrushless);
 
-  /** Creates a new ArmSubsystem. */
-  public ArmSubsystem() {
+  /** Creates a new ArmWristSubsystem. */
+  public ArmWristSubsystem() {
+
+    /* Arm Configuration */
+
     // Factory default configurations for all motors //
     m_talonArmMotor.configFactoryDefault();
 
@@ -36,23 +43,26 @@ public class ArmSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
+  /* Arm Methods */
+  public void moveArm(int level){
+
+  }
+
   public void rotateArm(double rotationSpeed){
     m_talonArmMotor.set(ControlMode.PercentOutput, rotationSpeed);
   }
 
-  // Intake pneumatics commands
-  public void pneumaticsExtend() {
-    m_doublePCM1.set(kForward);
-    m_doublePCM2.set(kForward);
+  /* Wrist Methods */
+  public void moveWrist(int position){
+
   }
 
-  public void pneumaticsRetract() {
-    m_doublePCM1.set(kReverse);
-    m_doublePCM2.set(kReverse);
+  public void rotateWrist(double rotationSpeed){
+
   }
 
-  public void pneumaticsNeutral() {
-    m_doublePCM1.set(kOff);
-    m_doublePCM2.set(kOff);
+  /* Intake Methods */
+  public void moveIntake(double rotationSpeed){
+
   }
 }
