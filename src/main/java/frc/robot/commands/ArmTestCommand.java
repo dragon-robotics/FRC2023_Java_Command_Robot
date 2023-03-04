@@ -7,31 +7,26 @@ package frc.robot.commands;
 import java.util.function.Supplier;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.ArmWristSubsystem;
 
 public class ArmTestCommand extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final ArmSubsystem m_arm;
-  private final Supplier<Double> m_rotationSpeed;
-  private final Supplier<Double> m_counterRotationSpeed;
-  private final Supplier<Boolean> m_extend;
-  private final Supplier<Boolean> m_retract;
+  private final ArmWristSubsystem m_armWrist;
+  private final Supplier<Double> m_armRotationSpeed;
+  private final Supplier<Double> m_wristRotationSpeed;
 
   /** Creates a new ArmTestCommand. */
   public ArmTestCommand(
-    ArmSubsystem arm,
-    Supplier<Double> rotationSpeed,
-    Supplier<Double> counterRotationSpeed,
-    Supplier<Boolean> extend,
-    Supplier<Boolean> retract
+    ArmWristSubsystem armWrist,
+    Supplier<Double> armRotationSpeed,
+    Supplier<Double> wristRotationSpeed
   ) {
-    m_arm = arm;
-    m_rotationSpeed = rotationSpeed;
-    m_counterRotationSpeed = counterRotationSpeed;
-    m_extend = extend;
-    m_retract = retract;
+    m_armWrist = armWrist;
+    m_armRotationSpeed = armRotationSpeed;
+    m_wristRotationSpeed = wristRotationSpeed;
+
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(arm);
+    addRequirements(armWrist);
   }
 
   // Called when the command is initially scheduled.
@@ -41,14 +36,9 @@ public class ArmTestCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_arm.rotateArm(m_rotationSpeed.get() - m_counterRotationSpeed.get());
-    if (m_extend.get()) {
-      m_arm.pneumaticsExtend();
-    } else if (m_retract.get()) {
-      m_arm.pneumaticsRetract();
-    } else {
-      m_arm.pneumaticsNeutral();
-    }
+    m_armWrist.rotateArm(m_armRotationSpeed.get());
+    m_armWrist.rotateWrist(m_wristRotationSpeed.get());
+    
   }
 
   // Called once the command ends or is interrupted.

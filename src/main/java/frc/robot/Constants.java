@@ -52,17 +52,15 @@ public final class Constants {
   public static final int MOTOR_RIGHT_TOP = 4;
   public static final int MOTOR_RIGHT_BOTTOM = 1;
 
+  // Arm //
+  public static final int NEO_ARM = 6;
+
+  // Wrist //
+  public static final int NEO_WRIST = 4;
+
   // Intake //
-  public static final int NEO_INTAKE = 3;
-
-  // Uptake //
-  public static final int NEO_UPTAKE_1 = 4;
-  public static final int NEO_UPTAKE_2 = 5;
-  public static final int NEO_UPTAKE_3 = 6;
-
-  // Shooter //
-  public static final int NEO_SHOOTER_LEFT = 1;
-  public static final int NEO_SHOOTER_RIGHT = 2;
+  public static final int NEO_550_INTAKE_LEFT = 1;
+  public static final int NEO_550_INTAKE_RIGHT = 2;
 
   // Robot Measurement Constants //
   public static final double TRACK_WIDTH_METERS = 0.546;

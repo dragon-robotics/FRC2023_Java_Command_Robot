@@ -7,12 +7,11 @@ package frc.robot;
 import frc.robot.AutoLoader.AutoCommand;
 import frc.robot.commands.ArcadeDriveCommand;
 import frc.robot.commands.ArmTestCommand;
-import frc.robot.commands.ClawTestCommand;
 import frc.robot.commands.CommunityExitCommand;
 import frc.robot.commands.IntakeConeDownCommand;
 import frc.robot.commands.IntakeConeUpCommand;
 import frc.robot.subsystems.DrivetrainSubsystem;
-import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.ArmWristSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 
 import java.util.List;
@@ -44,7 +43,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
   private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
-  private final ArmSubsystem m_armSubsystem = new ArmSubsystem();
+  private final ArmWristSubsystem m_armWristSubsystem = new ArmWristSubsystem();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   // Joystick - 1st driver (driver) = channel 0, 2nd driver (operator) = channel 1
@@ -89,13 +88,11 @@ public class RobotContainer {
     m_intakeConeDownButton.whileTrue(new IntakeConeDownCommand(m_intakeSubsystem));
     m_intakeConeUpButton.whileTrue(new IntakeConeUpCommand(m_intakeSubsystem));
 
-    m_armSubsystem.setDefaultCommand(
+    m_armWristSubsystem.setDefaultCommand(
       new ArmTestCommand(
-        m_armSubsystem,
+        m_armWristSubsystem,
         () -> m_driverController.getRawAxis(Constants.TRIGGER_LEFT),  // Rotate
-        () -> m_driverController.getRawAxis(Constants.TRIGGER_RIGHT), // Counter Rotation
-        () -> m_driverController.getRawButton(Constants.BTN_X),       // extend
-        () -> m_driverController.getRawButton(Constants.BTN_Y)        // retract
+        () -> m_driverController.getRawAxis(Constants.TRIGGER_RIGHT)  // Counter Rotation
       )
     );
 

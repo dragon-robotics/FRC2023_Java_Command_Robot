@@ -33,8 +33,6 @@ public class IntakeSubsystem extends SubsystemBase {
     m_intakeR.set(-0.4);
   }
 
-  public void IntakeCubeDown
-
   public void IntakeOff() {
     m_intakeL.set(0);
     m_intakeR.set(0);
