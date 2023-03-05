@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class IntakeSubsystem extends SubsystemBase {
   
   CANSparkMax m_intakeL = new CANSparkMax(9, MotorType.kBrushless);
-  CANSparkMax m_intakeR = new CANSparkMax(8, MotorType.kBrushless);
+  CANSparkMax m_intakeR = new CANSparkMax(4, MotorType.kBrushless);
 
   /** Creates a new ClawSubsystem. */
   public IntakeSubsystem() {}

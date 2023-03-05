@@ -53,10 +53,10 @@ public final class Constants {
   public static final int MOTOR_RIGHT_BOTTOM = 1;
 
   // Arm //
-  public static final int NEO_ARM = 6;
+  public static final int NEO_ARM = 10;
 
   // Wrist //
-  public static final int NEO_WRIST = 4;
+  public static final int NEO_WRIST = 11;
 
   // Intake //
   public static final int NEO_550_INTAKE_LEFT = 1;
