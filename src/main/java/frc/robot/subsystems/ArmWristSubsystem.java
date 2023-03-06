@@ -5,6 +5,8 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -14,9 +16,13 @@ public class ArmWristSubsystem extends SubsystemBase {
     
   /* Arm Motor */
   private final CANSparkMax m_armMotor = new CANSparkMax(Constants.NEO_ARM, MotorType.kBrushless);
+  private SparkMaxPIDController m_armMotorPidController;
+  // private RelativeEncoder m_armMotorEncoder;
   
   /* Wrist Motor */
   private final CANSparkMax m_wristMotor = new CANSparkMax(Constants.NEO_WRIST, MotorType.kBrushless);
+  private SparkMaxPIDController m_wristMotorPidController;
+  // private RelativeEncoder m_wristMotorEncoder;
 
   /* Intake Motor */
   // private final CANSparkMax m_intakeMotorLeft = new CANSparkMax(Constants.NEO_550_INTAKE_LEFT, MotorType.kBrushless);
@@ -30,11 +36,36 @@ public class ArmWristSubsystem extends SubsystemBase {
     // Factory default configurations for all arm motors //
     m_armMotor.restoreFactoryDefaults();
 
-    // Disable wrist motors //
+    // Disable arm motors //
     m_armMotor.set(0);
 
-    // Set neutral mode to brake on wrist motor //
+    // Set neutral mode to brake on arm motor //
     m_armMotor.setIdleMode(IdleMode.kBrake);
+
+    // Initialize PID controller and Encoder on arm motor //
+    m_armMotorPidController = m_armMotor.getPIDController();
+    // m_armMotorEncoder = m_armMotor.getEncoder();
+
+    // Set Arm PID Coefficients //
+    m_armMotorPidController.setP(Constants.ArmSmartMotionConstants.kP);
+    m_armMotorPidController.setI(Constants.ArmSmartMotionConstants.kI);
+    m_armMotorPidController.setD(Constants.ArmSmartMotionConstants.kD);
+    m_armMotorPidController.setIZone(Constants.ArmSmartMotionConstants.kIz);
+    m_armMotorPidController.setFF(Constants.ArmSmartMotionConstants.kFF);
+    m_armMotorPidController.setOutputRange(
+        Constants.ArmSmartMotionConstants.kMinOutput, 
+        Constants.ArmSmartMotionConstants.kMaxOutput
+    );
+
+    // Set Arm PID Smart Motion Coefficients //
+    m_armMotorPidController.setSmartMotionMaxVelocity(
+        Constants.ArmSmartMotionConstants.maxVel, Constants.ArmSmartMotionConstants.SMART_MOTION_SLOT);
+    m_armMotorPidController.setSmartMotionMinOutputVelocity(
+        Constants.ArmSmartMotionConstants.minVel, Constants.ArmSmartMotionConstants.SMART_MOTION_SLOT);
+    m_armMotorPidController.setSmartMotionMaxAccel(
+        Constants.ArmSmartMotionConstants.maxAcc, Constants.ArmSmartMotionConstants.SMART_MOTION_SLOT);
+    m_armMotorPidController.setSmartMotionAllowedClosedLoopError(
+        Constants.ArmSmartMotionConstants.allowedErr, Constants.ArmSmartMotionConstants.SMART_MOTION_SLOT);
 
     /* Wrist Motor Configuration */
 
@@ -47,22 +78,29 @@ public class ArmWristSubsystem extends SubsystemBase {
     // Set neutral mode to brake on wrist motor //
     m_wristMotor.setIdleMode(IdleMode.kBrake);
 
-    /* Intake Motor Configuration */
-    
-    // // Factory default configuration for all intake motors //
-    // m_intakeMotorLeft.restoreFactoryDefaults();
-    // m_intakeMotorRight.restoreFactoryDefaults();
+    // Initialize PID controller and Encoder on arm motor //
+    m_wristMotorPidController = m_wristMotor.getPIDController();
+    // m_wristMotorEncoder = m_wristMotor.getEncoder();
 
-    // // Set neutral mode to coast on intake motors //
-    // m_intakeMotorLeft.setIdleMode(IdleMode.kCoast);
-    // m_intakeMotorRight.setIdleMode(IdleMode.kCoast);
+    // Set Arm PID Coefficients //
+    m_wristMotorPidController.setP(Constants.WristSmartMotionConstants.kP);
+    m_wristMotorPidController.setI(Constants.WristSmartMotionConstants.kI);
+    m_wristMotorPidController.setD(Constants.WristSmartMotionConstants.kD);
+    m_wristMotorPidController.setIZone(Constants.WristSmartMotionConstants.kIz);
+    m_wristMotorPidController.setFF(Constants.WristSmartMotionConstants.kFF);
+    m_wristMotorPidController.setOutputRange(
+        Constants.WristSmartMotionConstants.kMinOutput,
+        Constants.WristSmartMotionConstants.kMaxOutput);
 
-    // // Set follower //
-    // m_intakeMotorRight.follow(m_intakeMotorLeft, true);
-
-    // // Disable intake motors //
-    // m_intakeMotorLeft.set(0);
-    // m_intakeMotorRight.set(0);
+    // Set Arm PID Smart Motion Coefficients //
+    m_wristMotorPidController.setSmartMotionMaxVelocity(
+        Constants.WristSmartMotionConstants.maxVel, Constants.WristSmartMotionConstants.SMART_MOTION_SLOT);
+    m_wristMotorPidController.setSmartMotionMinOutputVelocity(
+        Constants.WristSmartMotionConstants.minVel, Constants.WristSmartMotionConstants.SMART_MOTION_SLOT);
+    m_wristMotorPidController.setSmartMotionMaxAccel(
+        Constants.WristSmartMotionConstants.maxAcc, Constants.WristSmartMotionConstants.SMART_MOTION_SLOT);
+    m_wristMotorPidController.setSmartMotionAllowedClosedLoopError(
+        Constants.WristSmartMotionConstants.allowedErr, Constants.WristSmartMotionConstants.SMART_MOTION_SLOT);
   }
 
   @Override
@@ -71,8 +109,8 @@ public class ArmWristSubsystem extends SubsystemBase {
   }
 
   /* Arm Methods */
-  public void moveArm(int level){
-
+  public void moveArm(int position){
+    m_armMotorPidController.setReference(position, CANSparkMax.ControlType.kSmartMotion);
   }
 
   public void rotateArm(double rotationSpeed){
@@ -81,7 +119,7 @@ public class ArmWristSubsystem extends SubsystemBase {
 
   /* Wrist Methods */
   public void moveWrist(int position){
-
+    m_wristMotorPidController.setReference(position, CANSparkMax.ControlType.kSmartMotion);
   }
 
   public void rotateWrist(double rotationSpeed){

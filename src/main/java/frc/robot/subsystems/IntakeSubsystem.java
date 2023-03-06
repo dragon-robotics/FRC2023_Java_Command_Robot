@@ -16,7 +16,15 @@ public class IntakeSubsystem extends SubsystemBase {
   CANSparkMax m_intakeR = new CANSparkMax(4, MotorType.kBrushless);
 
   /** Creates a new ClawSubsystem. */
-  public IntakeSubsystem() {}
+  public IntakeSubsystem() {
+    // Factory default configurations for all arm motors //
+    m_intakeL.restoreFactoryDefaults();
+    m_intakeR.restoreFactoryDefaults();
+    
+    // Set default intake speed to be 0 //
+    m_intakeL.set(0);
+    m_intakeR.set(0);
+  }
 
   public void IntakeConeUp() {
     m_intakeL.set(0.4);

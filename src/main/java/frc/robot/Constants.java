@@ -62,6 +62,56 @@ public final class Constants {
   public static final int NEO_550_INTAKE_LEFT = 1;
   public static final int NEO_550_INTAKE_RIGHT = 2;
 
+  // PID Constants for Smart Motion //
+  // Arm //
+  public static final class ArmSmartMotionConstants {
+    // Smart Motion Slot //
+    public static final int SMART_MOTION_SLOT = 0;
+
+    // PID coefficients - @TODO to be tuned
+    public static final double kP = 5e-5;
+    public static final double kI = 1e-6;
+    public static final double kD = 0;
+    public static final double kIz = 0;
+    public static final double kFF = 0.000156;
+    public static final double kMaxOutput = 1;
+    public static final double kMinOutput = -1;
+    public static final int maxRPM = 5700;
+
+    // Smart Motion Coefficients - @TODO to be tuned
+    public static final int minVel = 0;
+    public static final int maxVel = 2000;
+    public static final int maxAcc = 1500;
+    public static final int allowedErr = 0;
+  }
+  
+  // Wrist //
+  public static final class WristSmartMotionConstants {
+    public static final int SMART_MOTION_SLOT = 0;
+
+    // PID coefficients - @TODO to be tuned
+    public static final double kP = 5e-5;
+    public static final double kI = 1e-6;
+    public static final double kD = 0;
+    public static final double kIz = 0;
+    public static final double kFF = 0.000156;
+    public static final double kMaxOutput = 1;
+    public static final double kMinOutput = -1;
+    public static final int maxRPM = 5700;
+
+    // Smart Motion Coefficients - @TODO to be tuned
+    public static final int minVel = 0;
+    public static final int maxVel = 2000;
+    public static final int maxAcc = 1500;
+    public static final int allowedErr = 0;
+  }
+
+  // Auto Balance Constants //
+  public static final double AUTO_BALANCED_P = 0.5;
+  public static final double AUTO_BALANCED_D = 0.01;
+  public static final double AUTO_BALANCED_DEG_TOL = 1;
+  public static final double AUTO_BALANCED_DEG_PER_S_TOL = 0.25;
+
   // Robot Measurement Constants //
   public static final double TRACK_WIDTH_METERS = 0.546;
   public static final double WHEEL_DIAMETER_METERS = 0.1524;
@@ -73,12 +123,6 @@ public final class Constants {
   public static final int ENCODER_CPR = 2048;
   public static final double ENCODER_DISTANCE_PER_PULSE = (WHEEL_CIRCUMFERENCE_METERS)
       / ((double) ENCODER_CPR * GEAR_RATIO);
-
-  // Auto Balance Constants //
-  public static final double AUTO_BALANCED_P = 0.5;
-  public static final double AUTO_BALANCED_D = 0.01;
-  public static final double AUTO_BALANCED_DEG_TOL = 1;
-  public static final double AUTO_BALANCED_DEG_PER_S_TOL = 0.25;
 
   // Differential Drive Kinematics //
   public static final DifferentialDriveKinematics DIFF_DRIVE_KINEMATICS = new DifferentialDriveKinematics(
