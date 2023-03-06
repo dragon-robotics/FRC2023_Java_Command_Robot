@@ -24,10 +24,6 @@ public class ArmWristSubsystem extends SubsystemBase {
   private SparkMaxPIDController m_wristMotorPidController;
   // private RelativeEncoder m_wristMotorEncoder;
 
-  /* Intake Motor */
-  // private final CANSparkMax m_intakeMotorLeft = new CANSparkMax(Constants.NEO_550_INTAKE_LEFT, MotorType.kBrushless);
-  // private final CANSparkMax m_intakeMotorRight = new CANSparkMax(Constants.NEO_550_INTAKE_RIGHT, MotorType.kBrushless);
-
   /** Creates a new ArmWristSubsystem. */
   public ArmWristSubsystem() {
 
@@ -125,9 +121,4 @@ public class ArmWristSubsystem extends SubsystemBase {
   public void rotateWrist(double rotationSpeed){
     m_wristMotor.set(rotationSpeed);
   }
-
-  // /* Intake Methods */
-  // public void rotateIntake(double rotationSpeed){
-  //   m_intakeMotorLeft.set(rotationSpeed);
-  // }
 }
