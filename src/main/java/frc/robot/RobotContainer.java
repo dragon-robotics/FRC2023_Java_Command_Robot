@@ -6,7 +6,7 @@ package frc.robot;
 
 import frc.robot.AutoLoader.AutoCommand;
 import frc.robot.commands.ArcadeDriveCommand;
-import frc.robot.commands.ArmTestCommand;
+import frc.robot.commands.ArmWristTestCommand;
 import frc.robot.commands.CommunityExitCommand;
 import frc.robot.commands.IntakeConeDownCommand;
 import frc.robot.commands.IntakeConeUpCommand;
@@ -89,13 +89,12 @@ public class RobotContainer {
     m_intakeConeUpButton.whileTrue(new IntakeConeUpCommand(m_intakeSubsystem));
 
     m_armWristSubsystem.setDefaultCommand(
-      new ArmTestCommand(
+      new ArmWristTestCommand(
         m_armWristSubsystem,
         () -> m_operatorController.getRawAxis(Constants.STICK_LEFT_Y),  // Arm Rotate
         () -> m_operatorController.getRawAxis(Constants.STICK_RIGHT_Y)  // Wrist Rotation
       )
     );
-
     
     // // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
     // new Trigger(m_drivetrainSubsystem::exampleCondition)

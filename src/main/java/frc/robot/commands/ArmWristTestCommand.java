@@ -9,14 +9,14 @@ import java.util.function.Supplier;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ArmWristSubsystem;
 
-public class ArmTestCommand extends CommandBase {
+public class ArmWristTestCommand extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final ArmWristSubsystem m_armWrist;
   private final Supplier<Double> m_armRotationSpeed;
   private final Supplier<Double> m_wristRotationSpeed;
 
-  /** Creates a new ArmTestCommand. */
-  public ArmTestCommand(
+  /** Creates a new ArmWristTestCommand. */
+  public ArmWristTestCommand(
     ArmWristSubsystem armWrist,
     Supplier<Double> armRotationSpeed,
     Supplier<Double> wristRotationSpeed
