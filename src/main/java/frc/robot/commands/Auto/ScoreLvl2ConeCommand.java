@@ -2,22 +2,14 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.Auto;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.IntakeSubsystem;
 
-
-
-public class IntakeConeUpCommand extends CommandBase {
-  private final IntakeSubsystem m_intake;
-  /** Creates a new IntakeUp. */
-  public IntakeConeUpCommand(
-    IntakeSubsystem intake
-  ) {
+public class ScoreLvl2ConeCommand extends CommandBase {
+  /** Creates a new ScoreLvl2ConeCommand. */
+  public ScoreLvl2ConeCommand() {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_intake = intake;
-    addRequirements(intake);
   }
 
   // Called when the command is initially scheduled.
@@ -26,15 +18,11 @@ public class IntakeConeUpCommand extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    m_intake.IntakeConeUp();
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    m_intake.IntakeOff();
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override

@@ -5,11 +5,11 @@
 package frc.robot;
 
 import frc.robot.AutoLoader.AutoCommand;
-import frc.robot.commands.ArcadeDriveCommand;
-import frc.robot.commands.ArmWristTestCommand;
-import frc.robot.commands.IntakeConeDownCommand;
-import frc.robot.commands.IntakeConeUpCommand;
 import frc.robot.commands.Auto.CommunityExitCommand;
+import frc.robot.commands.General.IntakeConeDownCommand;
+import frc.robot.commands.General.IntakeConeUpCommand;
+import frc.robot.commands.Teleop.ArcadeDriveCommand;
+import frc.robot.commands.Test.ArmWristTestCommand;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.ArmWristSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
