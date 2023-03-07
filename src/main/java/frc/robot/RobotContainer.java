@@ -7,9 +7,9 @@ package frc.robot;
 import frc.robot.AutoLoader.AutoCommand;
 import frc.robot.commands.ArcadeDriveCommand;
 import frc.robot.commands.ArmWristTestCommand;
-import frc.robot.commands.CommunityExitCommand;
 import frc.robot.commands.IntakeConeDownCommand;
 import frc.robot.commands.IntakeConeUpCommand;
+import frc.robot.commands.Auto.CommunityExitCommand;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.ArmWristSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -55,7 +55,6 @@ public class RobotContainer {
 
   // Create the auto loader class to load everything for us //
   private final AutoLoader m_autoLoader = new AutoLoader();
-
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
