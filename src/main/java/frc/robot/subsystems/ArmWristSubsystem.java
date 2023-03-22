@@ -38,6 +38,10 @@ public class ArmWristSubsystem extends SubsystemBase {
     // Set neutral mode to brake on arm motor //
     m_armMotor.setIdleMode(IdleMode.kBrake);
 
+    // Set current limit on arm motor //
+
+    // Set voltage compensation on arm motor //
+
     // Initialize PID controller and Encoder on arm motor //
     m_armMotorPidController = m_armMotor.getPIDController();
     // m_armMotorEncoder = m_armMotor.getEncoder();
@@ -73,6 +77,10 @@ public class ArmWristSubsystem extends SubsystemBase {
 
     // Set neutral mode to brake on wrist motor //
     m_wristMotor.setIdleMode(IdleMode.kBrake);
+
+    // Set current limit on wrist motor //
+
+    // Set voltage compensation on wrist motor //
 
     // Initialize PID controller and Encoder on arm motor //
     m_wristMotorPidController = m_wristMotor.getPIDController();
