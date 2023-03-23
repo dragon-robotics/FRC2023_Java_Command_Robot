@@ -4,6 +4,8 @@
 
 package frc.robot.commands.Auto;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DrivetrainSubsystem;
 
@@ -34,6 +36,7 @@ public class AutoBalanceCommand extends CommandBase {
   public void initialize() {
     m_startTime = System.currentTimeMillis();
     m_drivetrain.arcadeDrive(0, 0);
+    m_drivetrain.setNeutralMode(NeutralMode.Brake);
 
   }
 
@@ -47,6 +50,7 @@ public class AutoBalanceCommand extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     m_drivetrain.arcadeDrive(0.0, 0.0);
+    m_drivetrain.setNeutralMode(NeutralMode.Coast);
   }
 
   // Returns true when the command should end.
