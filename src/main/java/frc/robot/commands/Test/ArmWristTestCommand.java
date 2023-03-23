@@ -12,17 +12,20 @@ import frc.robot.subsystems.ArmWristSubsystem;
 public class ArmWristTestCommand extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final ArmWristSubsystem m_armWrist;
-  private final Supplier<Double> m_armRotationSpeed;
+  private final Supplier<Double> m_armRotationUpSpeed;
+  private final Supplier<Double> m_armRotationDownSpeed;
   private final Supplier<Double> m_wristRotationSpeed;
 
   /** Creates a new ArmWristTestCommand. */
   public ArmWristTestCommand(
     ArmWristSubsystem armWrist,
-    Supplier<Double> armRotationSpeed,
+    Supplier<Double> armRotationUpSpeed,
+    Supplier<Double> armRotationDownSpeed,
     Supplier<Double> wristRotationSpeed
   ) {
     m_armWrist = armWrist;
-    m_armRotationSpeed = armRotationSpeed;
+    m_armRotationUpSpeed = armRotationUpSpeed;
+    m_armRotationDownSpeed = armRotationDownSpeed;
     m_wristRotationSpeed = wristRotationSpeed;
 
     // Use addRequirements() here to declare subsystem dependencies.
@@ -36,9 +39,9 @@ public class ArmWristTestCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_armWrist.rotateArm(m_armRotationSpeed.get() * 0.4);
+    m_armWrist.rotateArm(
+      (m_armRotationUpSpeed.get() + m_armRotationDownSpeed.get()) * 0.4);
     m_armWrist.rotateWrist(m_wristRotationSpeed.get() * 0.25);
-    
   }
 
   // Called once the command ends or is interrupted.

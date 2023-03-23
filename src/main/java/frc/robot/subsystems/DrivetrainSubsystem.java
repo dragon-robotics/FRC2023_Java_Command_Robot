@@ -87,6 +87,13 @@ public class DrivetrainSubsystem extends SubsystemBase {
     );
   }
 
+  public void setNeutralMode(NeutralMode mode) {
+    m_talonLeftLead.setNeutralMode(mode);
+    m_talonLeftFollow.setNeutralMode(mode);
+    m_talonRightLead.setNeutralMode(mode);
+    m_talonRightFollow.setNeutralMode(mode);
+  }
+
   // Drive Modes //
   public void arcadeDrive(double speed, double rotation) {
     m_drive.arcadeDrive(speed, rotation);
