@@ -36,8 +36,8 @@ public class ArmWristTestCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_armWrist.rotateArm(m_armRotationSpeed.get());
-    m_armWrist.rotateWrist(m_wristRotationSpeed.get());
+    m_armWrist.rotateArm(m_armRotationSpeed.get() * 0.4);
+    m_armWrist.rotateWrist(m_wristRotationSpeed.get() * 0.25);
     
   }
 

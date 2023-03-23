@@ -30,6 +30,10 @@ public class IntakeSubsystem extends SubsystemBase {
     m_intakeFollow.follow(m_intakeLead, true);
   }
 
+  public void rotateIntake(double speed) {
+    m_intakeLead.set(speed);
+  }
+
   public void IntakeConeUp() {
     m_intakeLead.set(0.4);
     // m_intakeFollow.set(0.4);

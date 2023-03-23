@@ -17,6 +17,7 @@ public class AutoLoader {
         NONE,               // Does Nothing
         COMMUNITY_EXIT,     // Just leaves the tarmac without scoring
         EXAMPLE_TRAJECTORY, // Run the example trajectory
+        SCORE_CONE_AND_BALANCE
     }
 
     private SendableChooser<AutoCommand> m_autoChooser;
@@ -37,6 +38,7 @@ public class AutoLoader {
 
         m_autoChooser.addOption("Community Exit", AutoCommand.COMMUNITY_EXIT);
         m_autoChooser.addOption("Example Trajectory", AutoCommand.EXAMPLE_TRAJECTORY);
+        m_autoChooser.addOption("Score Cone and Balance", AutoCommand.SCORE_CONE_AND_BALANCE);
 
         // Initialize the rest of the options //
         SmartDashboard.putData(m_autoChooser);

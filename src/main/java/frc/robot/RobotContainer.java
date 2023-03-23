@@ -6,6 +6,7 @@ package frc.robot;
 
 import frc.robot.AutoLoader.AutoCommand;
 import frc.robot.commands.Auto.CommunityExitCommand;
+import frc.robot.commands.Auto.ScoreConeAndBalanceCommand;
 import frc.robot.commands.General.IntakeConeDownCommand;
 import frc.robot.commands.General.IntakeConeUpCommand;
 import frc.robot.commands.Teleop.ArcadeDriveCommand;
@@ -118,6 +119,8 @@ public class RobotContainer {
         return null;
       case COMMUNITY_EXIT:
         return new CommunityExitCommand(m_drivetrainSubsystem, 0.6, 2);
+      case SCORE_CONE_AND_BALANCE:
+        return new ScoreConeAndBalanceCommand(m_drivetrainSubsystem, m_intakeSubsystem);
       case EXAMPLE_TRAJECTORY:
         // Create a voltage constraint to ensure we don't accelerate too fast
         DifferentialDriveVoltageConstraint autoVoltageConstraint = new DifferentialDriveVoltageConstraint(
