@@ -21,7 +21,7 @@ public class ScoreConeAndBalanceCommand extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new ConeOutakeCommand(intake, -0.5, 1),
-      new AutoBalanceCommand(drivetrain, -0.4, 3.5)
+      new AutoBalanceCommand(drivetrain, -0.4, 5.3)
     );
   }
 }
