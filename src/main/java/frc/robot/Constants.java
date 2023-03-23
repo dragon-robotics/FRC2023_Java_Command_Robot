@@ -59,8 +59,8 @@ public final class Constants {
   public static final int NEO_WRIST = 10;
 
   // Intake //
-  public static final int NEO_550_INTAKE_LEFT = 1;
-  public static final int NEO_550_INTAKE_RIGHT = 2;
+  public static final int NEO_550_INTAKE_LEAD = 9;
+  public static final int NEO_550_INTAKE_FOLLOW = 4;
 
   // PID Constants for Smart Motion //
   // Arm //
