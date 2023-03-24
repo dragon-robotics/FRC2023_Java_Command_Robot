@@ -8,6 +8,8 @@ import frc.robot.subsystems.DrivetrainSubsystem;
 
 import java.util.function.Supplier;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** The arcade drive command that uses the drivetrain subsystem. */
@@ -18,6 +20,7 @@ public class ArcadeDriveCommand extends CommandBase {
   private final Supplier<Double> m_rotation;
   private final Supplier<Double> m_throttle;
   private final Supplier<Boolean> m_reverse;
+  private final Supplier<Boolean> m_brakeMode;
 
   /**
    * Creates a new ArcadeDriveCommand.
@@ -29,13 +32,15 @@ public class ArcadeDriveCommand extends CommandBase {
     Supplier<Double> speed,
     Supplier<Double> rotation,
     Supplier<Double> throttle,
-    Supplier<Boolean> reverse
+    Supplier<Boolean> reverse,
+    Supplier<Boolean> brakeMode
   ) {
     m_drivetrain = drivetrain;
     m_speed = speed;
     m_rotation = rotation;
     m_throttle = throttle;
     m_reverse = reverse;
+    m_brakeMode = brakeMode;
 
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(drivetrain);
@@ -43,7 +48,10 @@ public class ArcadeDriveCommand extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    // Make sure drivetrain is in coast //
+    m_drivetrain.setNeutralMode(NeutralMode.Coast);
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -51,6 +59,9 @@ public class ArcadeDriveCommand extends CommandBase {
     double throttle = m_throttle.get() > 0.5 ? 0.5 : 1 - m_throttle.get();
     double speed = m_reverse.get() ? -m_speed.get() * throttle : m_speed.get() * throttle;
     double rotation = m_rotation.get() * throttle;
+
+    NeutralMode brake = m_brakeMode.get() ? NeutralMode.Brake : NeutralMode.Coast;
+    m_drivetrain.setNeutralMode(brake);
 
     m_drivetrain.arcadeDrive(speed, rotation);
   }

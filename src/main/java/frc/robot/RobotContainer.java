@@ -82,7 +82,8 @@ public class RobotContainer {
             () -> -m_driverController.getRawAxis(Constants.STICK_LEFT_Y), // speed
             () -> -m_driverController.getRawAxis(Constants.STICK_RIGHT_X), // turn
             () -> m_driverController.getRawAxis(Constants.TRIGGER_LEFT), // throttle
-            () -> m_driverController.getRawButton(Constants.BUMPER_RIGHT) // reverse
+            () -> m_driverController.getRawButton(Constants.BUMPER_RIGHT), // reverse
+            () -> m_driverController.getRawButton(Constants.BUMPER_LEFT) // brake
         ));
     
     m_intakeConeDownButton.whileTrue(new IntakeConeDownCommand(m_intakeSubsystem));

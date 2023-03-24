@@ -50,7 +50,7 @@ public class AutoBalanceCommand extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     m_drivetrain.arcadeDrive(0.0, 0.0);
-    m_drivetrain.setNeutralMode(NeutralMode.Coast);
+    // m_drivetrain.setNeutralMode(NeutralMode.Coast);
   }
 
   // Returns true when the command should end.
