@@ -94,7 +94,7 @@ public class RobotContainer {
         m_armWristSubsystem,
         () -> m_operatorController.getRawAxis(Constants.TRIGGER_RIGHT),  // Arm Rotate Up
         () -> -m_operatorController.getRawAxis(Constants.TRIGGER_LEFT),  // Arm Rotate Down
-        () -> m_operatorController.getRawAxis(Constants.STICK_LEFT_Y)   // Wrist Rotation
+        () -> -m_operatorController.getRawAxis(Constants.STICK_LEFT_Y)   // Wrist Rotation
       )
     );
     

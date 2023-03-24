@@ -40,7 +40,7 @@ public class IntakeSubsystem extends SubsystemBase {
   }
 
   public void IntakeConeDown() {
-    m_intakeLead.set(-1);
+    m_intakeLead.set(-0.4);
     // m_intakeFollow.set(-1);
   }
 

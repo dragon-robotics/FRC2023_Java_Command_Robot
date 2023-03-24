@@ -39,7 +39,7 @@ public class ArmWristSubsystem extends SubsystemBase {
     m_armMotor.setIdleMode(IdleMode.kBrake);
 
     // Set current limit on arm motor //
-    m_armMotor.setSmartCurrentLimit(30);
+    // m_armMotor.setSmartCurrentLimit(30);
 
     // Set voltage compensation on arm motor //
     m_armMotor.enableVoltageCompensation(12);
@@ -81,7 +81,7 @@ public class ArmWristSubsystem extends SubsystemBase {
     m_wristMotor.setIdleMode(IdleMode.kBrake);
 
     // Set current limit on wrist motor //
-    m_wristMotor.setSmartCurrentLimit(30);
+    // m_wristMotor.setSmartCurrentLimit(30);
 
     // Set voltage compensation on wrist motor //
     m_wristMotor.enableVoltageCompensation(12);

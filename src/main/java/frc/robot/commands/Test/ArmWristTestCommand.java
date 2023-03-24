@@ -40,8 +40,8 @@ public class ArmWristTestCommand extends CommandBase {
   @Override
   public void execute() {
     m_armWrist.rotateArm(
-      (m_armRotationUpSpeed.get() + m_armRotationDownSpeed.get()) * 0.4);
-    m_armWrist.rotateWrist(m_wristRotationSpeed.get() * 0.25);
+      (m_armRotationUpSpeed.get() + m_armRotationDownSpeed.get()) * 0.18);
+    m_armWrist.rotateWrist(m_wristRotationSpeed.get() * 0.125);
   }
 
   // Called once the command ends or is interrupted.
