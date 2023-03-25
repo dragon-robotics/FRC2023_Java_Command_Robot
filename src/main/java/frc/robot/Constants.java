@@ -108,7 +108,7 @@ public final class Constants {
 
   // Auto Balance Constants //
   public static final double AUTO_BALANCED_P = 0.5;
-  public static final double AUTO_BALANCED_D = 0.01;
+  public static final double AUTO_BALANCED_D = 0.00;
   public static final double AUTO_BALANCED_DEG_TOL = 1;
   public static final double AUTO_BALANCED_DEG_PER_S_TOL = 0.25;
 

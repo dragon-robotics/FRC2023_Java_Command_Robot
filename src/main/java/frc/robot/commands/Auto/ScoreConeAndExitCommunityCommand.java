@@ -12,18 +12,18 @@ import frc.robot.subsystems.IntakeSubsystem;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class ScoreConeAndBalanceCommand extends SequentialCommandGroup {
-  /** Creates a new ScoreConeAndBalanceCommand. */
-  public ScoreConeAndBalanceCommand(
-    DrivetrainSubsystem drivetrain,
-    IntakeSubsystem intake
-  ) {
+public class ScoreConeAndExitCommunityCommand extends SequentialCommandGroup {
+  /** Creates a new ScoreConeAndExitCommunityCommand. */
+  public ScoreConeAndExitCommunityCommand(
+      DrivetrainSubsystem drivetrain,
+      IntakeSubsystem intake
+    ) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new ConeOutakeCommand(intake, -0.5, 1),
-      new AutoBalanceCommand(drivetrain, -0.4, 5.2),       // Approach charge station
-      new WaitCommand(4) // Wait for 4 seconds
+      new ConeOutakeCommand(intake, -0.5, 1),     // Shoot Cone
+      new CommunityExitCommand(drivetrain, -0.4, 6) // Exit Community
     );
   }
+
 }
