@@ -99,8 +99,9 @@ public class RobotContainer {
     m_armWristSubsystem.setDefaultCommand(
       new ArmWristTestCommand(
         m_armWristSubsystem,
-        () -> m_operatorController.getRawAxis(Constants.TRIGGER_RIGHT),  // Arm Rotate Up
-        () -> -m_operatorController.getRawAxis(Constants.TRIGGER_LEFT),  // Arm Rotate Down
+        // () -> m_operatorController.getRawAxis(Constants.TRIGGER_RIGHT),  // Arm Rotate Up
+        () -> m_operatorController.getRawAxis(Constants.TRIGGER_LEFT),  // Arm Rotate Up/Down
+        () -> m_operatorController.getRawButton(Constants.BUMPER_RIGHT),  // Arm Rotate Reverse
         () -> -m_operatorController.getRawAxis(Constants.STICK_LEFT_Y)   // Wrist Rotation
       )
     );
