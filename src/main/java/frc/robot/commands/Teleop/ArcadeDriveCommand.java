@@ -20,7 +20,7 @@ public class ArcadeDriveCommand extends CommandBase {
   private final Supplier<Double> m_rotation;
   private final Supplier<Double> m_throttle;
   private final Supplier<Boolean> m_reverse;
-  private final Supplier<Boolean> m_brakeMode;
+  private final Supplier<Boolean> m_powerLimit80;
 
   /**
    * Creates a new ArcadeDriveCommand.
@@ -33,14 +33,14 @@ public class ArcadeDriveCommand extends CommandBase {
     Supplier<Double> rotation,
     Supplier<Double> throttle,
     Supplier<Boolean> reverse,
-    Supplier<Boolean> brakeMode
+    Supplier<Boolean> powerLimit80
   ) {
     m_drivetrain = drivetrain;
     m_speed = speed;
     m_rotation = rotation;
     m_throttle = throttle;
     m_reverse = reverse;
-    m_brakeMode = brakeMode;
+    m_powerLimit80 = powerLimit80;
 
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(drivetrain);
@@ -60,7 +60,12 @@ public class ArcadeDriveCommand extends CommandBase {
     double speed = m_reverse.get() ? -m_speed.get() * throttle : m_speed.get() * throttle;
     double rotation = m_rotation.get() * throttle;
 
-    NeutralMode brake = m_brakeMode.get() ? NeutralMode.Brake : NeutralMode.Coast;
+    if (m_powerLimit80.get()){
+      if (speed > 0.8) {
+        speed = 0.8;
+      }
+    }
+    NeutralMode brake = m_powerLimit80.get() ? NeutralMode.Brake : NeutralMode.Coast;
     m_drivetrain.setNeutralMode(brake);
 
     m_drivetrain.arcadeDrive(speed, rotation);
