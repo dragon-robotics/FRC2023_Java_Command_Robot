@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
@@ -68,6 +69,12 @@ public class DrivetrainSubsystem extends SubsystemBase {
     // Set our lead motor's rotation orientations //
     m_talonLeftLead.setInverted(TalonFXInvertType.CounterClockwise);
     m_talonRightLead.setInverted(TalonFXInvertType.Clockwise);
+
+    // Configure Current Limiter on the Falcon 500s //
+    m_talonLeftLead.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 38, 40, 0.5));
+    m_talonLeftFollow.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 38, 40, 0.5));
+    m_talonRightLead.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 38, 40, 0.5));
+    m_talonRightFollow.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 38, 40, 0.5));
 
     // Configure encoder readings on the TalonFX //
     m_talonLeftLead.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 0);
