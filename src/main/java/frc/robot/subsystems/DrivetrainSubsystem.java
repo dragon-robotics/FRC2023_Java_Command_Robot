@@ -77,10 +77,11 @@ public class DrivetrainSubsystem extends SubsystemBase {
     m_talonLeftLead.setInverted(TalonFXInvertType.CounterClockwise);
     m_talonRightLead.setInverted(TalonFXInvertType.Clockwise);
 
-    m_talonLeftLead.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 40, 40, 0.1));
-    m_talonLeftFollow.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 40, 40, 0.1));
-    m_talonRightLead.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 40, 40, 0.1));
-    m_talonRightFollow.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 40, 40, 0.1));
+    // Configure Current Limiter on the Falcon 500s //
+    // m_talonLeftLead.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 38, 40, 0.5));
+    // m_talonLeftFollow.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 38, 40, 0.5));
+    // m_talonRightLead.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 38, 40, 0.5));
+    // m_talonRightFollow.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 38, 40, 0.5));
 
     // Configure encoder readings on the TalonFX //
     m_talonLeftLead.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 0);

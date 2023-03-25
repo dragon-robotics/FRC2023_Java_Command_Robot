@@ -114,6 +114,7 @@ public class ArmWristSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    // Get Wrist Position
   }
 
   /* Arm Methods */

@@ -4,31 +4,28 @@
 
 package frc.robot.commands.Auto;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DrivetrainSubsystem;
 
-public class CommunityExitCommand extends CommandBase {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
+public class AutoBalanceIMUCommand extends CommandBase {
+
   private final DrivetrainSubsystem m_drivetrain;
-  private final double m_seconds;
   private final double m_speed;
+  private final double m_seconds;
 
-  private long m_startTime;
+  private double m_startTime;
 
-  /**
-   * Creates a new ArcadeDriveCommand.
-   *
-   * @param drivetrain The drivetrain used by this command.
-   */
-  public CommunityExitCommand(
-    DrivetrainSubsystem drivetrain, // The drivetrain subsystem
-    double speed, // motor speed %
-    double seconds // Number of seconds to drive
-  ) {
+  /** Creates a new AutoBalanceIMUCommand. */
+  public AutoBalanceIMUCommand(
+      DrivetrainSubsystem drivetrain,
+      double speed,
+      double seconds) {
     m_drivetrain = drivetrain;
-    m_seconds = seconds * 1000;
     m_speed = speed;
-    
+    m_seconds = seconds * 1000;
+
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(drivetrain);
   }
@@ -36,30 +33,28 @@ public class CommunityExitCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    // Capture current time
     m_startTime = System.currentTimeMillis();
-    // Make sure the drivetrain isn't moving
     m_drivetrain.arcadeDrive(0, 0);
+    m_drivetrain.setNeutralMode(NeutralMode.Brake);
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // Move the drivetrain
-    m_drivetrain.arcadeDrive(m_speed, 0);
+    m_drivetrain.arcadeDrive(m_speed, 0.0);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    // Stop the drivetrain
-    m_drivetrain.arcadeDrive(0, 0);
+    m_drivetrain.arcadeDrive(0.0, 0.0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    // Drive backwards for a number of seconds defined by the user
-    return (System.currentTimeMillis() - m_startTime) >= m_seconds;
+    // Drive for user-defined seconds //
+    return ((System.currentTimeMillis() - m_startTime) >= m_seconds) || Math.abs(m_drivetrain.getPitch()) <= 2;
   }
 }
