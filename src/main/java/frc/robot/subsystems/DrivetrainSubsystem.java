@@ -8,11 +8,14 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
@@ -36,6 +39,11 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
   // Odometry class for tracking robot pose //
   private final DifferentialDriveOdometry m_odometry;
+
+  NetworkTableEntry m_leftLeadTempEntry = NetworkTableInstance.getDefault().getTable("troubleshooting").getEntry("Talon Left Lead Temperature");
+  NetworkTableEntry m_rightLeadTempEntry = NetworkTableInstance.getDefault().getTable("troubleshooting").getEntry("Talon Right Lead Temperature");
+  NetworkTableEntry m_leftFollowTempEntry = NetworkTableInstance.getDefault().getTable("troubleshooting").getEntry("Talon Left Follow Temperature");
+  NetworkTableEntry m_rightFollowTempEntry = NetworkTableInstance.getDefault().getTable("troubleshooting").getEntry("Talon Right Follow Temperature");
 
   /** Creates a new DrivetrainSubsystem. */
   public DrivetrainSubsystem() {
@@ -68,6 +76,11 @@ public class DrivetrainSubsystem extends SubsystemBase {
     // Set our lead motor's rotation orientations //
     m_talonLeftLead.setInverted(TalonFXInvertType.CounterClockwise);
     m_talonRightLead.setInverted(TalonFXInvertType.Clockwise);
+
+    m_talonLeftLead.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 40, 40, 0.1));
+    m_talonLeftFollow.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 40, 40, 0.1));
+    m_talonRightLead.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 40, 40, 0.1));
+    m_talonRightFollow.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 40, 40, 0.1));
 
     // Configure encoder readings on the TalonFX //
     m_talonLeftLead.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 0);
@@ -180,9 +193,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
         m_gyro.getRotation2d(), getDistance(m_talonLeftLead), getDistance(m_talonRightLead));
 
     // Added code to record X and Y odometry data //
-    // var translation = m_odometry.getPoseMeters().getTranslation();
-    // m_xEntry.setNumber(translation.getX());
-    // m_yEntry.setNumber(translation.getY());
+    m_leftLeadTempEntry.setNumber(m_talonLeftLead.getTemperature());
+    m_rightLeadTempEntry.setNumber(m_talonRightLead.getTemperature());
+    m_leftFollowTempEntry.setNumber(m_talonLeftFollow.getTemperature());
+    m_rightFollowTempEntry.setNumber(m_talonRightFollow.getTemperature());
 
     // double degree = getHeading();
     // m_angleEntry.setDouble(degree);

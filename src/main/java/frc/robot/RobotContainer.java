@@ -50,8 +50,11 @@ public class RobotContainer {
   // Joystick - 1st driver (driver) = channel 0, 2nd driver (operator) = channel 1
   private final Joystick m_driverController = new Joystick(Constants.DRIVER);
   private final Joystick m_operatorController = new Joystick(Constants.OPERATOR);
-  private final JoystickButton m_intakeConeUpButton = new JoystickButton(m_operatorController, Constants.BTN_A);
-  private final JoystickButton m_intakeConeDownButton = new JoystickButton(m_operatorController, Constants.BTN_B);
+  private final JoystickButton m_intakeConeUpOperatorButton = new JoystickButton(m_operatorController, Constants.BTN_A);
+  private final JoystickButton m_intakeConeDownOperatorButton = new JoystickButton(m_operatorController, Constants.BTN_B);
+  private final JoystickButton m_intakeConeUpDriverButton = new JoystickButton(m_driverController, Constants.BTN_A);
+  private final JoystickButton m_intakeConeDownDriverButton = new JoystickButton(m_driverController, Constants.BTN_B);
+
   // private final Joystick m_operatorController = new Joystick(Constants.OPERATOR);
 
   // Create the auto loader class to load everything for us //
@@ -86,8 +89,11 @@ public class RobotContainer {
             () -> m_driverController.getRawButton(Constants.BUMPER_LEFT) // brake
         ));
     
-    m_intakeConeDownButton.whileTrue(new IntakeConeDownCommand(m_intakeSubsystem));
-    m_intakeConeUpButton.whileTrue(new IntakeConeUpCommand(m_intakeSubsystem));
+    m_intakeConeDownDriverButton.whileTrue(new IntakeConeDownCommand(m_intakeSubsystem));
+    m_intakeConeUpDriverButton.whileTrue(new IntakeConeUpCommand(m_intakeSubsystem));
+    m_intakeConeDownOperatorButton.whileTrue(new IntakeConeDownCommand(m_intakeSubsystem));
+    m_intakeConeUpOperatorButton.whileTrue(new IntakeConeUpCommand(m_intakeSubsystem));
+
 
     m_armWristSubsystem.setDefaultCommand(
       new ArmWristTestCommand(

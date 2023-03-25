@@ -5,6 +5,7 @@
 package frc.robot.commands.Auto;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 
@@ -21,8 +22,10 @@ public class ScoreConeAndBalanceCommand extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new ConeOutakeCommand(intake, -0.5, 1),
-      new AutoBalanceCommand(drivetrain, -0.4, 5.1),
-      new AutoBalanceCommand(drivetrain, 0.2, 0.2)
+      new AutoBalanceCommand(drivetrain, -0.4, 5.25),
+      new WaitCommand(4)
+      // new AutoBalanceWithIMUCommand(drivetrain, -0.1, 5)
+      // new AutoBalanceCommand(drivetrain, 0.2, 0.2)
     );
   }
 }
