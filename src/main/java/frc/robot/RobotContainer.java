@@ -121,7 +121,7 @@ public class RobotContainer {
       case NONE:
         return null;
       case COMMUNITY_EXIT:
-        return new CommunityExitCommand(m_drivetrainSubsystem, 0.6, 2);
+        return new CommunityExitCommand(m_drivetrainSubsystem, -0.4, 6);
       case SCORE_CONE_AND_BALANCE:
         return new ScoreConeAndBalanceCommand(m_drivetrainSubsystem, m_intakeSubsystem);
       case SCORE_CONE_AND_COMMUNITY_EXIT:
