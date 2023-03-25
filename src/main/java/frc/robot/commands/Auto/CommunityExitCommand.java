@@ -22,8 +22,8 @@ public class CommunityExitCommand extends CommandBase {
    */
   public CommunityExitCommand(
     DrivetrainSubsystem drivetrain, // The drivetrain subsystem
-    double seconds, // Number of seconds to drive
-    double speed // motor speed %
+    double speed, // motor speed %
+    double seconds // Number of seconds to drive
   ) {
     m_drivetrain = drivetrain;
     m_seconds = seconds * 1000;
