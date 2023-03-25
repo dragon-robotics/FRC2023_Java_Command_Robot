@@ -20,7 +20,7 @@ public class ScoreConeAndExitCommunityCommand extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new ConeOutakeCommand(intake, -0.5, 1),     // Shoot Cone
+      new ConeOutakeCommand(intake, -0.5, 1),       // Shoot Cone
       new CommunityExitCommand(drivetrain, -0.4, 6) // Exit Community
     );
   }
