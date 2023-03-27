@@ -21,22 +21,26 @@ public class AutoBalancePIDCommand extends PIDCommand {
    */
   public AutoBalancePIDCommand(double targetPitchDegrees, DrivetrainSubsystem drivetrain) {
     super(
-        new PIDController(Constants.AUTO_BALANCED_P, 0, Constants.AUTO_BALANCED_D),
+        new PIDController(
+            Constants.AUTO_BALANCE_P,
+            Constants.AUTO_BALANCE_I,
+            Constants.AUTO_BALANCE_D
+        ),
         // Close loop on heading
         drivetrain::getPitch,
         // Set reference to target
         targetPitchDegrees,
         // Pipe output to turn robot
-        output -> drivetrain.arcadeDrive(output, 0),
+        output -> drivetrain.tankDriveVoltsAuto(output, output),
         // Require the drive
         drivetrain);
 
     // Set the controller to be continuous (because it is an angle controller)
-    getController().enableContinuousInput(-70, 70);
+    getController().enableContinuousInput(-30, 30);
     // Set the controller tolerance - the delta tolerance ensures the robot is stationary at the
     // setpoint before it is considered as having reached the reference
     getController()
-        .setTolerance(Constants.AUTO_BALANCED_DEG_TOL, Constants.AUTO_BALANCED_DEG_PER_S_TOL);
+        .setTolerance(Constants.AUTO_BALANCE_DEG_TOL, Constants.AUTO_BALANCE_DEG_PER_S_TOL);
   }
 
   @Override

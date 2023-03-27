@@ -62,6 +62,12 @@ public final class Constants {
   public static final int NEO_550_INTAKE_LEAD = 9;
   public static final int NEO_550_INTAKE_FOLLOW = 4;
 
+  // Arm Absolute Encoder //
+  public static final int ARM_MOTOR_CHANNEL = 0;
+
+  // Wrist Absolute Encoder //
+  public static final int WRIST_MOTOR_CHANNEL = 1;
+
   // PID Constants for Smart Motion //
   // Arm //
   public static final class ArmSmartMotionConstants {
@@ -107,10 +113,11 @@ public final class Constants {
   }
 
   // Auto Balance Constants //
-  public static final double AUTO_BALANCED_P = 0.5;
-  public static final double AUTO_BALANCED_D = 0.00;
-  public static final double AUTO_BALANCED_DEG_TOL = 1;
-  public static final double AUTO_BALANCED_DEG_PER_S_TOL = 0.25;
+  public static final double AUTO_BALANCE_P = 0.5;
+  public static final double AUTO_BALANCE_D = 0.0;
+  public static final double AUTO_BALANCE_I = 0.0;
+  public static final double AUTO_BALANCE_DEG_TOL = 1;
+  public static final double AUTO_BALANCE_DEG_PER_S_TOL = 0.25;
 
   // Robot Measurement Constants //
   public static final double TRACK_WIDTH_METERS = 0.546;

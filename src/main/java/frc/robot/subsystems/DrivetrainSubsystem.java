@@ -15,7 +15,6 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
@@ -117,10 +116,21 @@ public class DrivetrainSubsystem extends SubsystemBase {
     m_drive.tankDrive(leftSpeed, rightSpeed);
   }
   
-  public void tankDriveVolts(double leftVolts, double rightVolts){
+  public void tankDriveVolts(double leftVolts, double rightVolts) {
     m_talonLeftLead.setVoltage(leftVolts);   // Set voltage for left motor
     m_talonRightLead.setVoltage(rightVolts);  // Set voltage for right motor
     m_drive.feed();                   // Feed the motor safety object, stops the motor if anything goes wrong
+  }
+
+  public void tankDriveVoltsAuto(double leftVolts, double rightVolts) {
+    // Put a hard limit on the voltage to make sure we're going as slow as possible //
+    leftVolts = leftVolts > 1.5 ? 1.5 : leftVolts;
+    rightVolts = rightVolts > 1.5 ? 1.5 : rightVolts;
+
+    m_talonLeftLead.setVoltage(leftVolts);   // Set voltage for left motor
+    m_talonRightLead.setVoltage(rightVolts);  // Set voltage for right motor
+    m_drive.feed();                   // Feed the motor safety object, stops the motor if anything goes wrong
+
   }
 
   public void setMaxOutput(double maxOutput) {
