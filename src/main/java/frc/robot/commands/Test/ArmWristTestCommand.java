@@ -40,7 +40,7 @@ public class ArmWristTestCommand extends CommandBase {
   @Override
   public void execute() {
     double reverse = m_armReverse.get() ? -1.0 : 1.0;
-    m_armWrist.rotateArm(m_armRotationSpeed.get() * 0.18 * reverse);
+    m_armWrist.rotateArm(m_armRotationSpeed.get() * 0.28 * reverse);
     m_armWrist.rotateWrist(m_wristRotationSpeed.get() * 0.125);
   }
 
