@@ -19,24 +19,24 @@ public class AutoBalancePIDCommand extends PIDCommand {
    * @param targetPitchDegrees The pitch we want to land at
    * @param drivetrain The drive subsystem to use
    */
-  public AutoBalancePIDCommand(double targetPitchDegrees, DrivetrainSubsystem drivetrain) {
+  public AutoBalancePIDCommand(DrivetrainSubsystem drivetrain, double targetPitchDegrees) {
     super(
         new PIDController(
             Constants.AUTO_BALANCE_P,
             Constants.AUTO_BALANCE_I,
             Constants.AUTO_BALANCE_D
         ),
-        // Close loop on heading
+        // Close loop on pitch
         drivetrain::getPitch,
         // Set reference to target
         targetPitchDegrees,
-        // Pipe output to turn robot
-        output -> drivetrain.tankDriveVoltsAuto(output, output),
+        // Pipe output to drive robot
+        output -> drivetrain.tankDriveVoltsAuto(-output, -output),
         // Require the drive
         drivetrain);
 
     // Set the controller to be continuous (because it is an angle controller)
-    getController().enableContinuousInput(-30, 30);
+    // getController().enableContinuousInput(-30, 30);
     // Set the controller tolerance - the delta tolerance ensures the robot is stationary at the
     // setpoint before it is considered as having reached the reference
     getController()

@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class ShuffleboardSubsystem extends SubsystemBase {
   /** Creates a new Shuffleboard. */
   private final PowerDistribution m_pdp = new PowerDistribution();
-  private final Pigeon2 gyro = new WPI_Pigeon2(1);
+  // private final Pigeon2 gyro = new WPI_Pigeon2(1);
 
 
   public ShuffleboardSubsystem() {
@@ -30,8 +30,8 @@ public class ShuffleboardSubsystem extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("Battery Voltage", m_pdp.getVoltage());
-    SmartDashboard.putNumber("Pigeon Roll", gyro.getRoll());
-    SmartDashboard.putNumber("Pigeon Pitch", gyro.getPitch());
-    SmartDashboard.putNumber("Pigeon Yaw", -gyro.getYaw());
+    // SmartDashboard.putNumber("Pigeon Roll", gyro.getRoll());
+    // SmartDashboard.putNumber("Pigeon Pitch", gyro.getPitch());
+    // SmartDashboard.putNumber("Pigeon Yaw", -gyro.getYaw());
   }
 }

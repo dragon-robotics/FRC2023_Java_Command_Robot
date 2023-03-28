@@ -34,7 +34,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
   DifferentialDrive m_drive = new DifferentialDrive(m_talonLeftLead, m_talonRightLead);
 
   // Gyro //
-  WPI_Pigeon2 m_gyro = new WPI_Pigeon2(0);
+  WPI_Pigeon2 m_gyro = new WPI_Pigeon2(Constants.PIGEON2_ID);
 
   // Odometry class for tracking robot pose //
   private final DifferentialDriveOdometry m_odometry;
@@ -124,8 +124,17 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
   public void tankDriveVoltsAuto(double leftVolts, double rightVolts) {
     // Put a hard limit on the voltage to make sure we're going as slow as possible //
-    leftVolts = leftVolts > 1.5 ? 1.5 : leftVolts;
-    rightVolts = rightVolts > 1.5 ? 1.5 : rightVolts;
+    if (leftVolts > 1.5) {
+      leftVolts = 1.5;
+    } else if (leftVolts < -1.5) {
+      leftVolts = -1.5;
+    }
+
+    if (rightVolts > 1.5) {
+      rightVolts = 1.5;
+    } else if (rightVolts < -1.5) {
+      rightVolts = -1.5;
+    }
 
     m_talonLeftLead.setVoltage(leftVolts);   // Set voltage for left motor
     m_talonRightLead.setVoltage(rightVolts);  // Set voltage for right motor
@@ -175,6 +184,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
   }
 
   public double getPitch() {
+    System.out.println(m_gyro.getPitch());
     return m_gyro.getPitch();
   }
 

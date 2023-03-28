@@ -68,6 +68,9 @@ public final class Constants {
   // Wrist Absolute Encoder //
   public static final int WRIST_MOTOR_CHANNEL = 1;
 
+  // PIGEON 2 ID //
+  public static final int PIGEON2_ID = 1;
+
   // PID Constants for Smart Motion //
   // Arm //
   public static final class ArmSmartMotionConstants {
@@ -113,11 +116,11 @@ public final class Constants {
   }
 
   // Auto Balance Constants //
-  public static final double AUTO_BALANCE_P = 0.5;
+  public static final double AUTO_BALANCE_P = 0.25;
   public static final double AUTO_BALANCE_D = 0.0;
   public static final double AUTO_BALANCE_I = 0.0;
-  public static final double AUTO_BALANCE_DEG_TOL = 1;
-  public static final double AUTO_BALANCE_DEG_PER_S_TOL = 0.25;
+  public static final double AUTO_BALANCE_DEG_TOL = 7;
+  public static final double AUTO_BALANCE_DEG_PER_S_TOL = 1.5;
 
   // Robot Measurement Constants //
   public static final double TRACK_WIDTH_METERS = 0.546;
