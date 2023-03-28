@@ -126,6 +126,7 @@ public class ArmWristSubsystem extends SubsystemBase {
     m_wristPositionEntry.setNumber(m_wristMotorAbsEncoder.getAbsolutePosition()); // Get Wrist Position
     m_wristPositionEntry.setNumber(m_wristMotor.getBusVoltage());                 // Get Wrist Voltage
     m_wristPositionEntry.setNumber(m_wristMotor.getOutputCurrent());              // Get Wrist Current
+
   }
 
   /* Arm Methods */

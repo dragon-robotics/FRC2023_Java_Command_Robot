@@ -11,6 +11,7 @@ import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.InvertType;
@@ -39,10 +40,11 @@ public class DrivetrainSubsystem extends SubsystemBase {
   // Odometry class for tracking robot pose //
   private final DifferentialDriveOdometry m_odometry;
 
-  NetworkTableEntry m_leftLeadTempEntry = NetworkTableInstance.getDefault().getTable("troubleshooting").getEntry("Talon Left Lead Temperature");
-  NetworkTableEntry m_rightLeadTempEntry = NetworkTableInstance.getDefault().getTable("troubleshooting").getEntry("Talon Right Lead Temperature");
-  NetworkTableEntry m_leftFollowTempEntry = NetworkTableInstance.getDefault().getTable("troubleshooting").getEntry("Talon Left Follow Temperature");
-  NetworkTableEntry m_rightFollowTempEntry = NetworkTableInstance.getDefault().getTable("troubleshooting").getEntry("Talon Right Follow Temperature");
+  NetworkTableEntry tx = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx");
+  NetworkTableEntry ty = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty");
+  NetworkTableEntry ta = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ta");
+
+  // private final SimpleMotorFeedforward  m_tankDriveVoltsFeedforward;
 
   /** Creates a new DrivetrainSubsystem. */
   public DrivetrainSubsystem() {
@@ -75,12 +77,6 @@ public class DrivetrainSubsystem extends SubsystemBase {
     // Set our lead motor's rotation orientations //
     m_talonLeftLead.setInverted(TalonFXInvertType.CounterClockwise);
     m_talonRightLead.setInverted(TalonFXInvertType.Clockwise);
-
-    // Configure Current Limiter on the Falcon 500s //
-    // m_talonLeftLead.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 38, 40, 0.5));
-    // m_talonLeftFollow.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 38, 40, 0.5));
-    // m_talonRightLead.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 38, 40, 0.5));
-    // m_talonRightFollow.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 38, 40, 0.5));
 
     // Configure encoder readings on the TalonFX //
     m_talonLeftLead.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 0);
@@ -213,11 +209,14 @@ public class DrivetrainSubsystem extends SubsystemBase {
     m_odometry.update(
         m_gyro.getRotation2d(), getDistance(m_talonLeftLead), getDistance(m_talonRightLead));
 
-    // Added code to record X and Y odometry data //
-    m_leftLeadTempEntry.setNumber(m_talonLeftLead.getTemperature());
-    m_rightLeadTempEntry.setNumber(m_talonRightLead.getTemperature());
-    m_leftFollowTempEntry.setNumber(m_talonLeftFollow.getTemperature());
-    m_rightFollowTempEntry.setNumber(m_talonRightFollow.getTemperature());
+    SmartDashboard.putNumber("Pigeon 2 Roll", m_gyro.getRoll());
+    SmartDashboard.putNumber("Pigeon 2 Pitch", m_gyro.getPitch());
+    SmartDashboard.putNumber("Pigeon 2 Yaw", m_gyro.getYaw());
+
+    // post to smart dashboard periodically
+    SmartDashboard.putNumber("LimelightX", tx.getDouble(0.0));
+    SmartDashboard.putNumber("LimelightY", ty.getDouble(0.0));
+    SmartDashboard.putNumber("LimelightArea", ta.getDouble(0.0));
 
     // double degree = getHeading();
     // m_angleEntry.setDouble(degree);
