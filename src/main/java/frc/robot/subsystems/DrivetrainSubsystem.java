@@ -11,6 +11,7 @@ import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -32,7 +33,9 @@ public class DrivetrainSubsystem extends SubsystemBase {
   WPI_TalonFX m_talonLeftFollow = new WPI_TalonFX(Constants.MOTOR_LEFT_BOTTOM);
   WPI_TalonFX m_talonRightLead = new WPI_TalonFX(Constants.MOTOR_RIGHT_TOP);
   WPI_TalonFX m_talonRightFollow = new WPI_TalonFX(Constants.MOTOR_RIGHT_BOTTOM);
-  DifferentialDrive m_drive = new DifferentialDrive(m_talonLeftLead, m_talonRightLead);
+  MotorControllerGroup m_left = new MotorControllerGroup(m_talonLeftLead, m_talonLeftFollow);
+  MotorControllerGroup m_right = new MotorControllerGroup(m_talonRightLead, m_talonRightFollow);
+  DifferentialDrive m_drive = new DifferentialDrive(m_left, m_right);
 
   // Gyro //
   WPI_Pigeon2 m_gyro = new WPI_Pigeon2(Constants.PIGEON2_ID);
@@ -66,13 +69,19 @@ public class DrivetrainSubsystem extends SubsystemBase {
     m_talonRightLead.setNeutralMode(NeutralMode.Coast);
     m_talonRightFollow.setNeutralMode(NeutralMode.Coast);
 
+    // Set Falcon 500 Voltage Compensation to 10V //
+    m_talonLeftLead.configVoltageCompSaturation(10);
+    m_talonLeftFollow.configVoltageCompSaturation(10);
+    m_talonRightLead.configVoltageCompSaturation(10);
+    m_talonRightFollow.configVoltageCompSaturation(10);
+
     // Set our followers to follow the lead motor //
-    m_talonLeftFollow.follow(m_talonLeftLead);
-    m_talonRightFollow.follow(m_talonRightLead);
+    // m_talonLeftFollow.follow(m_talonLeftLead);
+    // m_talonRightFollow.follow(m_talonRightLead);
 
     // Set our follower's inverted to be opposite of the master //
-    m_talonLeftFollow.setInverted(InvertType.FollowMaster);
-    m_talonRightFollow.setInverted(InvertType.FollowMaster);
+    m_talonLeftFollow.setInverted(TalonFXInvertType.CounterClockwise);
+    m_talonRightFollow.setInverted(TalonFXInvertType.Clockwise);
 
     // Set our lead motor's rotation orientations //
     m_talonLeftLead.setInverted(TalonFXInvertType.CounterClockwise);
@@ -114,7 +123,9 @@ public class DrivetrainSubsystem extends SubsystemBase {
   
   public void tankDriveVolts(double leftVolts, double rightVolts) {
     m_talonLeftLead.setVoltage(leftVolts);   // Set voltage for left motor
+    m_talonLeftFollow.setVoltage(leftVolts);
     m_talonRightLead.setVoltage(rightVolts);  // Set voltage for right motor
+    m_talonRightFollow.setVoltage(rightVolts);
     m_drive.feed();                   // Feed the motor safety object, stops the motor if anything goes wrong
   }
 
@@ -133,8 +144,9 @@ public class DrivetrainSubsystem extends SubsystemBase {
     }
 
     m_talonLeftLead.setVoltage(leftVolts);   // Set voltage for left motor
+    m_talonLeftFollow.setVoltage(leftVolts);
     m_talonRightLead.setVoltage(rightVolts);  // Set voltage for right motor
-    m_drive.feed();                   // Feed the motor safety object, stops the motor if anything goes wrong
+    m_talonRightFollow.setVoltage(rightVolts);    m_drive.feed();                   // Feed the motor safety object, stops the motor if anything goes wrong
 
   }
 
