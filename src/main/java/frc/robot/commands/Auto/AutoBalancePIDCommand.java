@@ -4,6 +4,8 @@
 
 package frc.robot.commands.Auto;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
 import frc.robot.Constants;
@@ -34,6 +36,8 @@ public class AutoBalancePIDCommand extends PIDCommand {
         output -> drivetrain.tankDriveVoltsAuto(-output, -output),
         // Require the drive
         drivetrain);
+
+    drivetrain.setNeutralMode(NeutralMode.Brake);
 
     // Set the controller to be continuous (because it is an angle controller)
     getController().enableContinuousInput(-30, 30);

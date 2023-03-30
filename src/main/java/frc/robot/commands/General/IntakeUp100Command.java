@@ -7,16 +7,17 @@ package frc.robot.commands.General;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.IntakeSubsystem;
 
-public class IntakeConeDownCommand extends CommandBase {
-  /** Creates a new IntakeDown. */
+
+
+public class IntakeUp100Command extends CommandBase {
   private final IntakeSubsystem m_intake;
-  public IntakeConeDownCommand(
+  /** Creates a new IntakeUp. */
+  public IntakeUp100Command(
     IntakeSubsystem intake
   ) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_intake = intake;
     addRequirements(intake);
-
   }
 
   // Called when the command is initially scheduled.
@@ -26,7 +27,7 @@ public class IntakeConeDownCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_intake.IntakeConeDown();
+    m_intake.IntakeUp100();
   }
 
   // Called once the command ends or is interrupted.

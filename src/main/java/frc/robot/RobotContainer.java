@@ -8,8 +8,10 @@ import frc.robot.AutoLoader.AutoCommand;
 import frc.robot.commands.Auto.CommunityExitCommand;
 import frc.robot.commands.Auto.ScoreConeAndBalanceCommand;
 import frc.robot.commands.Auto.ScoreConeAndExitCommunityCommand;
-import frc.robot.commands.General.IntakeConeDownCommand;
-import frc.robot.commands.General.IntakeConeUpCommand;
+import frc.robot.commands.General.IntakeDown100Command;
+import frc.robot.commands.General.IntakeDown40Command;
+import frc.robot.commands.General.IntakeUp100Command;
+import frc.robot.commands.General.IntakeUp40Command;
 import frc.robot.commands.Teleop.ArcadeDriveCommand;
 import frc.robot.commands.Test.ArmWristTestCommand;
 import frc.robot.subsystems.DrivetrainSubsystem;
@@ -51,10 +53,17 @@ public class RobotContainer {
   // Joystick - 1st driver (driver) = channel 0, 2nd driver (operator) = channel 1
   private final Joystick m_driverController = new Joystick(Constants.DRIVER);
   private final Joystick m_operatorController = new Joystick(Constants.OPERATOR);
-  private final JoystickButton m_intakeConeUpOperatorButton = new JoystickButton(m_operatorController, Constants.BTN_A);
-  private final JoystickButton m_intakeConeDownOperatorButton = new JoystickButton(m_operatorController, Constants.BTN_B);
-  private final JoystickButton m_intakeConeUpDriverButton = new JoystickButton(m_driverController, Constants.BTN_A);
-  private final JoystickButton m_intakeConeDownDriverButton = new JoystickButton(m_driverController, Constants.BTN_B);
+
+  private final JoystickButton m_intakeUp40OperatorButton = new JoystickButton(m_operatorController, Constants.BTN_A);
+  private final JoystickButton m_intakeDown40OperatorButton = new JoystickButton(m_operatorController, Constants.BTN_B);
+  private final JoystickButton m_intakeUp40DriverButton = new JoystickButton(m_driverController, Constants.BTN_A);
+  private final JoystickButton m_intakeDown40DriverButton = new JoystickButton(m_driverController, Constants.BTN_B);
+
+  private final JoystickButton m_intakeUp100OperatorButton = new JoystickButton(m_operatorController, Constants.BTN_X);
+  private final JoystickButton m_intakeDown100OperatorButton = new JoystickButton(m_operatorController, Constants.BTN_Y);
+  private final JoystickButton m_intakeUp100DriverButton = new JoystickButton(m_driverController, Constants.BTN_X);
+  private final JoystickButton m_intakeDown100DriverButton = new JoystickButton(m_driverController, Constants.BTN_Y);
+
 
   // private final Joystick m_operatorController = new Joystick(Constants.OPERATOR);
 
@@ -90,14 +99,17 @@ public class RobotContainer {
             () -> m_driverController.getRawButton(Constants.BUMPER_LEFT) // brake
         ));
     
-    m_intakeConeDownDriverButton.whileTrue(new IntakeConeDownCommand(m_intakeSubsystem));
-    m_intakeConeUpDriverButton.whileTrue(new IntakeConeUpCommand(m_intakeSubsystem));
-    m_intakeConeDownOperatorButton.whileTrue(new IntakeConeDownCommand(m_intakeSubsystem));
-    m_intakeConeUpOperatorButton.whileTrue(new IntakeConeUpCommand(m_intakeSubsystem));
+    m_intakeDown40DriverButton.whileTrue(new IntakeDown40Command(m_intakeSubsystem));
+    m_intakeUp40DriverButton.whileTrue(new IntakeUp40Command(m_intakeSubsystem));
+    m_intakeDown40OperatorButton.whileTrue(new IntakeDown40Command(m_intakeSubsystem));
+    m_intakeUp40OperatorButton.whileTrue(new IntakeUp40Command(m_intakeSubsystem));
 
+    m_intakeDown100DriverButton.whileTrue(new IntakeDown100Command(m_intakeSubsystem));
+    m_intakeUp100DriverButton.whileTrue(new IntakeUp100Command(m_intakeSubsystem));
+    m_intakeDown100OperatorButton.whileTrue(new IntakeDown100Command(m_intakeSubsystem));
+    m_intakeUp100OperatorButton.whileTrue(new IntakeUp100Command(m_intakeSubsystem));
 
-    m_armWristSubsystem.setDefaultCommand(
-      new ArmWristTestCommand(
+    m_armWristSubsystem.setDefaultCommand(new ArmWristTestCommand(
         m_armWristSubsystem,
         // () -> m_operatorController.getRawAxis(Constants.TRIGGER_RIGHT),  // Arm Rotate Up
         () -> m_operatorController.getRawAxis(Constants.TRIGGER_LEFT),  // Arm Rotate Up/Down

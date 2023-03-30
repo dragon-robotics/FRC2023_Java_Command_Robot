@@ -5,11 +5,18 @@
 package frc.robot.commands.General;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.IntakeSubsystem;
 
-public class IntakeCubeUpCommand extends CommandBase {
-  /** Creates a new IntakeCubeUpCommand. */
-  public IntakeCubeUpCommand() {
+public class IntakeDown40Command extends CommandBase {
+  /** Creates a new IntakeDown. */
+  private final IntakeSubsystem m_intake;
+  public IntakeDown40Command(
+    IntakeSubsystem intake
+  ) {
     // Use addRequirements() here to declare subsystem dependencies.
+    m_intake = intake;
+    addRequirements(intake);
+
   }
 
   // Called when the command is initially scheduled.
@@ -18,11 +25,15 @@ public class IntakeCubeUpCommand extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    m_intake.IntakeDown40();
+  }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    m_intake.IntakeOff();
+  }
 
   // Returns true when the command should end.
   @Override

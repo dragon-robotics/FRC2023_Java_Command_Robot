@@ -34,18 +34,23 @@ public class IntakeSubsystem extends SubsystemBase {
     m_intakeLead.set(speed);
   }
 
-  public void IntakeConeUp() {
+  public void IntakeUp40() {
     m_intakeLead.set(0.4);
     // m_intakeFollow.set(0.4);
   }
 
-  public void IntakeConeDown() {
-    m_intakeLead.set(-0.6);
+  public void IntakeDown40() {
+    m_intakeLead.set(-0.4);
     // m_intakeFollow.set(-1);
   }
 
-  public void IntakeCubeUp() {
-    m_intakeLead.set(-0.4);
+  public void IntakeUp100() {
+    m_intakeLead.set(1.0);
+    // m_intakeFollow.set(-0.4);
+  }
+
+  public void IntakeDown100() {
+    m_intakeLead.set(-1.0);
     // m_intakeFollow.set(-0.4);
   }
 
