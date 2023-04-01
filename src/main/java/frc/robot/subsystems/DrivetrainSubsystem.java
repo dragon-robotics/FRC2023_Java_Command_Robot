@@ -70,10 +70,15 @@ public class DrivetrainSubsystem extends SubsystemBase {
     m_talonRightFollow.setNeutralMode(NeutralMode.Coast);
 
     // Set Falcon 500 Voltage Compensation to 10V //
-    m_talonLeftLead.configVoltageCompSaturation(10);
-    m_talonLeftFollow.configVoltageCompSaturation(10);
-    m_talonRightLead.configVoltageCompSaturation(10);
-    m_talonRightFollow.configVoltageCompSaturation(10);
+    // m_talonLeftLead.configVoltageCompSaturation(9);
+    // m_talonLeftFollow.configVoltageCompSaturation(9);
+    // m_talonRightLead.configVoltageCompSaturation(9);
+    // m_talonRightFollow.configVoltageCompSaturation(9);
+    
+    m_talonLeftLead.configOpenloopRamp(0.01);
+    m_talonLeftFollow.configOpenloopRamp(0.01);
+    m_talonRightLead.configOpenloopRamp(0.01);
+    m_talonRightLead.configOpenloopRamp(0.01);
 
     // Set our followers to follow the lead motor //
     // m_talonLeftFollow.follow(m_talonLeftLead);
@@ -230,6 +235,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("LimelightY", ty.getDouble(0.0));
     SmartDashboard.putNumber("LimelightArea", ta.getDouble(0.0));
 
+    SmartDashboard.putNumber("FalconLeftTopTemp", m_talonLeftLead.getTemperature());
+    SmartDashboard.putNumber("FalconLeftFollowTemp", m_talonLeftFollow.getTemperature());
+    SmartDashboard.putNumber("FalconRightTopTemp", m_talonRightLead.getTemperature());
+    SmartDashboard.putNumber("FalconRightFollowTemp", m_talonRightFollow.getTemperature());
     
 
     // double degree = getHeading();

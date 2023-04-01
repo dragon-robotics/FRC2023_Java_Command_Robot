@@ -35,7 +35,7 @@ public class AutoLoader {
 
         // Default option is to always have no auto command running //
         // m_autoChooser.setDefaultOption("None", AutoCommand.NONE);
-        m_autoChooser.setDefaultOption("Score Cone and Community Exit", AutoCommand.SCORE_CONE_AND_COMMUNITY_EXIT);
+        m_autoChooser.setDefaultOption("Score Cone and Balance", AutoCommand.SCORE_CONE_AND_BALANCE);
 
         m_autoChooser.addOption("None", AutoCommand.NONE);
         m_autoChooser.addOption("Community Exit", AutoCommand.COMMUNITY_EXIT);

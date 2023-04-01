@@ -19,11 +19,12 @@ public class ScoreConeAndBalanceCommand extends SequentialCommandGroup {
     IntakeSubsystem intake
   ) {
     // Add your commands in the addCommands() call, e.g.
-    // addCommands(new FooCommand(), new BarCommand());
+    // addCommands(new FooCommand(), new 4());
     addCommands(
-      new ConeOutakeCommand(intake, -0.5, 1),
-      new CommunityExitCommand(drivetrain, -0.5, 4),
-      new CommunityExitCommand(drivetrain, 0.43, 2.5),
+      new ConeOutakeCommand(intake, -0.5, 1.0),
+      new CommunityExitCommand(drivetrain, -4.5, 4),
+      new WaitCommand(0.5),
+      new CommunityExitCommand(drivetrain, 3.87, 2.5),
       new AutoBalancePIDCommand(drivetrain, 0),
       new WaitCommand(4)
       // new AutoBalanceWithIMUCommand(drivetrain, -0.1, 5)
