@@ -45,9 +45,9 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
-  private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
-  private final ArmWristSubsystem m_armWristSubsystem = new ArmWristSubsystem();
+  public final DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
+  public final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
+  public final ArmWristSubsystem m_armWristSubsystem = new ArmWristSubsystem();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   // Joystick - 1st driver (driver) = channel 0, 2nd driver (operator) = channel 1
