@@ -35,8 +35,6 @@ public class Robot extends TimedRobot {
     m_robotContainer = new RobotContainer();
 
     m_shuffleboardSubsystem = new ShuffleboardSubsystem();
-
-    
   }
 
   /**
@@ -60,9 +58,7 @@ public class Robot extends TimedRobot {
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
   public void disabledInit() {
-    m_robotContainer.m_drivetrainSubsystem.setNeutralMode(NeutralMode.Brake);
   }
-
   @Override
   public void disabledPeriodic() {}
 
