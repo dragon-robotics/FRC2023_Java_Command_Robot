@@ -11,7 +11,8 @@ public class CommunityExitCommand extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final DrivetrainSubsystem m_drivetrain;
   private final double m_seconds;
-  private final double m_volts;
+  // private final double m_volts;
+  private final double m_speed;
 
   private long m_startTime;
 
@@ -27,7 +28,7 @@ public class CommunityExitCommand extends CommandBase {
   ) {
     m_drivetrain = drivetrain;
     m_seconds = seconds * 1000;
-    m_volts = speed;
+    m_speed = speed;
     
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(drivetrain);
@@ -39,21 +40,24 @@ public class CommunityExitCommand extends CommandBase {
     // Capture current time
     m_startTime = System.currentTimeMillis();
     // Make sure the drivetrain isn't moving
-    m_drivetrain.tankDriveVolts(0, 0);
+    m_drivetrain.arcadeDrive(0, 0);
+    // m_drivetrain.tankDriveVolts(0, 0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     // Move the drivetrain
-    m_drivetrain.tankDriveVolts(m_volts, m_volts);
+    m_drivetrain.arcadeDrive(m_speed, 0);
+    // m_drivetrain.tankDriveVolts(m_volts, m_volts);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     // Stop the drivetrain
-    m_drivetrain.tankDriveVolts(0, 0);
+    m_drivetrain.arcadeDrive(0, 0);
+    // m_drivetrain.tankDriveVolts(0, 0);
   }
 
   // Returns true when the command should end.

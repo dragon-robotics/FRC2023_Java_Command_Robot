@@ -63,8 +63,9 @@ public class ArcadeDriveCommand extends CommandBase {
   public void execute() {
     double throttle = m_throttle.get() > 0.6 ? 0.4 : 1 - m_throttle.get();
     double speed = m_reverse.get() ? -m_speed.get() * throttle : m_speed.get() * throttle;
-    speed = speed > 0.8 : 0.8 : speed;
+    speed = speed > 0.8 || speed < -0.8 ? speed * 0.8 : speed;
     double rotation = m_rotation.get() * throttle;
+    rotation = rotation > 0.8 || rotation < -0.8 ? rotation * 0.8 : rotation;
 
     // If button is held, change motor neutral mode to brake mode //
     if (m_neutralModeToggle.get() && m_neutralMode == NeutralMode.Coast) {

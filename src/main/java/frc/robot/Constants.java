@@ -116,10 +116,10 @@ public final class Constants {
   }
 
   // Auto Balance Constants //
-  public static final double AUTO_BALANCE_P = 0.135;
+  public static final double AUTO_BALANCE_P = 0.11;
   public static final double AUTO_BALANCE_D = 0.0;
   public static final double AUTO_BALANCE_I = 0.0;
-  public static final double AUTO_BALANCE_DEG_TOL = 7;
+  public static final double AUTO_BALANCE_DEG_TOL = 3.5;
   public static final double AUTO_BALANCE_DEG_PER_S_TOL = 1.5;
 
   // Robot Measurement Constants //

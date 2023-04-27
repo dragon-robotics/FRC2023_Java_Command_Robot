@@ -70,10 +70,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
     m_talonRightFollow.setNeutralMode(NeutralMode.Coast);
 
     // Set Falcon 500 Voltage Compensation to 10V //
-    // m_talonLeftLead.configVoltageCompSaturation(9);
-    // m_talonLeftFollow.configVoltageCompSaturation(9);
-    // m_talonRightLead.configVoltageCompSaturation(9);
-    // m_talonRightFollow.configVoltageCompSaturation(9);
+    m_talonLeftLead.configVoltageCompSaturation(10);
+    m_talonLeftFollow.configVoltageCompSaturation(10);
+    m_talonRightLead.configVoltageCompSaturation(10);
+    m_talonRightFollow.configVoltageCompSaturation(10);
     
     m_talonLeftLead.configOpenloopRamp(0.01);
     m_talonLeftFollow.configOpenloopRamp(0.01);
