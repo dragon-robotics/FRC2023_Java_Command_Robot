@@ -56,16 +56,13 @@ public class RobotContainer {
 
   private final JoystickButton m_intakeUp40OperatorButton = new JoystickButton(m_operatorController, Constants.BTN_A);
   private final JoystickButton m_intakeDown40OperatorButton = new JoystickButton(m_operatorController, Constants.BTN_B);
-  private final JoystickButton m_intakeUp40DriverButton = new JoystickButton(m_driverController, Constants.BTN_A);
-  private final JoystickButton m_intakeDown40DriverButton = new JoystickButton(m_driverController, Constants.BTN_B);
+  // private final JoystickButton m_intakeUp40DriverButton = new JoystickButton(m_driverController, Constants.BTN_A);
+  // private final JoystickButton m_intakeDown40DriverButton = new JoystickButton(m_driverController, Constants.BTN_B);
 
   private final JoystickButton m_intakeUp100OperatorButton = new JoystickButton(m_operatorController, Constants.BTN_X);
   private final JoystickButton m_intakeDown100OperatorButton = new JoystickButton(m_operatorController, Constants.BTN_Y);
-  private final JoystickButton m_intakeUp100DriverButton = new JoystickButton(m_driverController, Constants.BTN_X);
-  private final JoystickButton m_intakeDown100DriverButton = new JoystickButton(m_driverController, Constants.BTN_Y);
-
-
-  // private final Joystick m_operatorController = new Joystick(Constants.OPERATOR);
+  // private final JoystickButton m_intakeUp100DriverButton = new JoystickButton(m_driverController, Constants.BTN_X);
+  // private final JoystickButton m_intakeDown100DriverButton = new JoystickButton(m_driverController, Constants.BTN_Y);
 
   // Create the auto loader class to load everything for us //
   private final AutoLoader m_autoLoader = new AutoLoader();
@@ -99,13 +96,9 @@ public class RobotContainer {
             () -> m_driverController.getRawButton(Constants.BUMPER_LEFT) // brake
         ));
     
-    m_intakeDown40DriverButton.whileTrue(new IntakeDown40Command(m_intakeSubsystem));
-    m_intakeUp40DriverButton.whileTrue(new IntakeUp40Command(m_intakeSubsystem));
     m_intakeDown40OperatorButton.whileTrue(new IntakeDown40Command(m_intakeSubsystem));
     m_intakeUp40OperatorButton.whileTrue(new IntakeUp40Command(m_intakeSubsystem));
 
-    m_intakeDown100DriverButton.whileTrue(new IntakeDown100Command(m_intakeSubsystem));
-    m_intakeUp100DriverButton.whileTrue(new IntakeUp100Command(m_intakeSubsystem));
     m_intakeDown100OperatorButton.whileTrue(new IntakeDown100Command(m_intakeSubsystem));
     m_intakeUp100OperatorButton.whileTrue(new IntakeUp100Command(m_intakeSubsystem));
 
