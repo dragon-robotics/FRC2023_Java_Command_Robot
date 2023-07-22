@@ -54,15 +54,17 @@ public class RobotContainer {
   private final Joystick m_driverController = new Joystick(Constants.DRIVER);
   private final Joystick m_operatorController = new Joystick(Constants.OPERATOR);
 
-  // private final JoystickButton m_intakeUp40OperatorButton = new JoystickButton(m_operatorController, Constants.BTN_A);
-  // private final JoystickButton m_intakeDown40OperatorButton = new JoystickButton(m_operatorController, Constants.BTN_B);
   // private final JoystickButton m_intakeUp40DriverButton = new JoystickButton(m_driverController, Constants.BTN_A);
   // private final JoystickButton m_intakeDown40DriverButton = new JoystickButton(m_driverController, Constants.BTN_B);
-
-  private final JoystickButton m_intakeUp100OperatorButton = new JoystickButton(m_operatorController, Constants.BUMPER_LEFT);
-  private final JoystickButton m_intakeDown100OperatorButton = new JoystickButton(m_operatorController, Constants.BUMPER_RIGHT);
   // private final JoystickButton m_intakeUp100DriverButton = new JoystickButton(m_driverController, Constants.BTN_X);
   // private final JoystickButton m_intakeDown100DriverButton = new JoystickButton(m_driverController, Constants.BTN_Y);
+
+  // private final JoystickButton m_intakeUp40OperatorButton = new JoystickButton(m_operatorController, Constants.BTN_A);
+  // private final JoystickButton m_intakeDown40OperatorButton = new JoystickButton(m_operatorController, Constants.BTN_B);
+  private final JoystickButton m_intakeUp100OperatorButton = new JoystickButton(m_operatorController, Constants.BUMPER_LEFT);
+  private final JoystickButton m_intakeDown100OperatorButton = new JoystickButton(m_operatorController, Constants.BUMPER_RIGHT);
+  private final JoystickButton m_armWristNeutralOperatorButton = new JoystickButton(m_operatorController, Constants.BTN_A);
+  private final JoystickButton m_armWristNeutralOperatorButton = new JoystickButton(m_operatorController, Constants.BTN_A);
 
   // Create the auto loader class to load everything for us //
   private final AutoLoader m_autoLoader = new AutoLoader();
@@ -101,14 +103,16 @@ public class RobotContainer {
     m_intakeUp100OperatorButton.whileTrue(new IntakeUp100Command(m_intakeSubsystem));
 
     // Operator Arm / Wrist Control Setpoints //
-    // Human Double Substation - Cone //
-    // Human Single Substation - Cube //
-    // Human Single Substation - Cone //
-    // Hybrid Grid - Cube //
-    // Hybrid Grid - Cone //
-    // Level 2 Grid - Cube //
-    // Level 2 Grid - Cone //
-    // Level 3 Grid - Cone** //
+    // Neutral Position //
+    // 2. Human Single Substation - Intake Cube //
+    // 5. Hybrid Grid - Score Cube //
+    // 1. Human Double Substation - Intake Cone //
+    // 8. Level 2 Grid - Score Cone //
+    // 4. Ground Intake Upright Cone //
+    // 6. Hybrid Grid - Score Cone //
+    // 3. Human Single Substation - Intake Cone //
+    // 9. Level 3 Grid - Score Cone** //
+    // 7. Level 2 Grid - Score Cube //
 
     m_armWristSubsystem.setDefaultCommand(new ArmWristTestCommand(
         m_armWristSubsystem,
