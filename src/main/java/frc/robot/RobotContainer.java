@@ -54,13 +54,13 @@ public class RobotContainer {
   private final Joystick m_driverController = new Joystick(Constants.DRIVER);
   private final Joystick m_operatorController = new Joystick(Constants.OPERATOR);
 
-  private final JoystickButton m_intakeUp40OperatorButton = new JoystickButton(m_operatorController, Constants.BTN_A);
-  private final JoystickButton m_intakeDown40OperatorButton = new JoystickButton(m_operatorController, Constants.BTN_B);
+  // private final JoystickButton m_intakeUp40OperatorButton = new JoystickButton(m_operatorController, Constants.BTN_A);
+  // private final JoystickButton m_intakeDown40OperatorButton = new JoystickButton(m_operatorController, Constants.BTN_B);
   // private final JoystickButton m_intakeUp40DriverButton = new JoystickButton(m_driverController, Constants.BTN_A);
   // private final JoystickButton m_intakeDown40DriverButton = new JoystickButton(m_driverController, Constants.BTN_B);
 
-  private final JoystickButton m_intakeUp100OperatorButton = new JoystickButton(m_operatorController, Constants.BTN_X);
-  private final JoystickButton m_intakeDown100OperatorButton = new JoystickButton(m_operatorController, Constants.BTN_Y);
+  private final JoystickButton m_intakeUp100OperatorButton = new JoystickButton(m_operatorController, Constants.BUMPER_LEFT);
+  private final JoystickButton m_intakeDown100OperatorButton = new JoystickButton(m_operatorController, Constants.BUMPER_RIGHT);
   // private final JoystickButton m_intakeUp100DriverButton = new JoystickButton(m_driverController, Constants.BTN_X);
   // private final JoystickButton m_intakeDown100DriverButton = new JoystickButton(m_driverController, Constants.BTN_Y);
 
@@ -95,9 +95,6 @@ public class RobotContainer {
             () -> m_driverController.getRawButton(Constants.BUMPER_RIGHT), // reverse
             () -> m_driverController.getRawButton(Constants.BUMPER_LEFT) // brake
         ));
-    
-    m_intakeDown40OperatorButton.whileTrue(new IntakeDown40Command(m_intakeSubsystem));
-    m_intakeUp40OperatorButton.whileTrue(new IntakeUp40Command(m_intakeSubsystem));
 
     m_intakeDown100OperatorButton.whileTrue(new IntakeDown100Command(m_intakeSubsystem));
     m_intakeUp100OperatorButton.whileTrue(new IntakeUp100Command(m_intakeSubsystem));
