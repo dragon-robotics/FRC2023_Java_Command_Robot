@@ -52,32 +52,39 @@ public final class Constants {
   public static final int MOTOR_RIGHT_TOP = 4;
   public static final int MOTOR_RIGHT_BOTTOM = 1;
 
-  // Arm //
-  public static final int NEO_ARM = 11;
-
-  // Wrist //
-  public static final int NEO_WRIST = 10;
-
   // Intake //
   public static final int NEO_550_INTAKE_LEAD = 9;
   public static final int NEO_550_INTAKE_FOLLOW = 4;
-
-  // Arm Absolute Encoder //
-  public static final int ARM_MOTOR_CHANNEL = 0;
-
-  // Wrist Absolute Encoder //
-  public static final int WRIST_MOTOR_CHANNEL = 1;
 
   // PIGEON 2 ID //
   public static final int PIGEON2_ID = 1;
 
   // PID Constants for Smart Motion //
   // Arm //
-  public static final class ArmSmartMotionConstants {
+  public static final class ArmMotorConstants {
+    // Arm ID //
+    public static final int NEO_ARM = 11;
+
     // Smart Motion Slot //
     public static final int SMART_MOTION_SLOT = 0;
 
-    // PID coefficients - @TODO to be tuned
+    // Voltage Compensation //
+    public static final double VOLTAGE_COMP = 10;
+
+    // Smart Current Limit //
+    public static final int SMART_CURRENT_LIMIT = 20;
+
+    // Soft Limit - @TODO to be tuned //
+    public static final float LIMIT_BOTTOM = 0.5804f;
+    public static final float LIMIT_TOP = 0.8995f;
+
+    // Absolute Encoder Offset - @TODO to be tuned //
+    public static final double ENCODER_OFFSET = -0.58342d;
+
+    // Gravity Feedforward - @TODO to be tuned //
+    public static final double GRAVITY_FF = 0.01;
+
+    // PID coefficients - @TODO to be tuned //
     public static final double kP = 5e-5;
     public static final double kI = 1e-6;
     public static final double kD = 0;
@@ -87,7 +94,7 @@ public final class Constants {
     public static final double kMinOutput = -1;
     public static final int maxRPM = 5700;
 
-    // Smart Motion Coefficients - @TODO to be tuned
+    // Smart Motion Coefficients - @TODO to be tuned //
     public static final int minVel = 0;
     public static final int maxVel = 2000;
     public static final int maxAcc = 1500;
@@ -95,8 +102,28 @@ public final class Constants {
   }
   
   // Wrist //
-  public static final class WristSmartMotionConstants {
-    public static final int SMART_MOTION_SLOT = 0;
+  public static final class WristMotorConstants {
+    // Wrist ID //
+    public static final int NEO_WRIST = 10;
+
+    // Smart Motion Slot //
+    public static final int SMART_MOTION_SLOT = 1;
+
+    // Voltage Compensation //
+    public static final double VOLTAGE_COMP = 10;
+
+    // Smart Current Limit //
+    public static final int SMART_CURRENT_LIMIT = 20;
+
+    // Soft Limit - @TODO to be tuned //
+    public static final float LIMIT_BOTTOM = 0.5804f;
+    public static final float LIMIT_TOP = 0.8995f;
+
+    // Absolute Encoder Offset - @TODO to be tuned //
+    public static final double ENCODER_OFFSET = -0.58342d;
+
+    // Gravity Feedforward - @TODO to be tuned //
+    public static final double GRAVITY_FF = 0.01;
 
     // PID coefficients - @TODO to be tuned
     public static final double kP = 5e-5;
@@ -133,7 +160,6 @@ public final class Constants {
   public static final int ENCODER_CPR = 2048;
   public static final double ENCODER_DISTANCE_PER_PULSE = (WHEEL_CIRCUMFERENCE_METERS)
       / ((double) ENCODER_CPR * GEAR_RATIO);
-
 
   // Differential Drive Kinematics //
   public static final DifferentialDriveKinematics DIFF_DRIVE_KINEMATICS = new DifferentialDriveKinematics(
