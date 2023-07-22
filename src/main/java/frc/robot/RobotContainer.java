@@ -96,8 +96,19 @@ public class RobotContainer {
             () -> m_driverController.getRawButton(Constants.BUMPER_LEFT) // brake
         ));
 
+    // Operator Intake Buttons //
     m_intakeDown100OperatorButton.whileTrue(new IntakeDown100Command(m_intakeSubsystem));
     m_intakeUp100OperatorButton.whileTrue(new IntakeUp100Command(m_intakeSubsystem));
+
+    // Operator Arm / Wrist Control Setpoints //
+    // Human Double Substation - Cone //
+    // Human Single Substation - Cube //
+    // Human Single Substation - Cone //
+    // Hybrid Grid - Cube //
+    // Hybrid Grid - Cone //
+    // Level 2 Grid - Cube //
+    // Level 2 Grid - Cone //
+    // Level 3 Grid - Cone** //
 
     m_armWristSubsystem.setDefaultCommand(new ArmWristTestCommand(
         m_armWristSubsystem,
