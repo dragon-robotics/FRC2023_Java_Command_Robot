@@ -61,7 +61,8 @@ public class ArcadeDriveCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double throttle = m_throttle.get() > 0.6 ? 0.4 : 1 - m_throttle.get();
+    // double throttle = m_throttle.get() > 0.6 ? 0.4 : 1 - m_throttle.get();
+    double throttle = m_throttle.get() < 0.5 ? 0.5 : m_throttle.get();
     double speed = m_reverse.get() ? -m_speed.get() * throttle : m_speed.get() * throttle;
     speed = speed > 0.8 || speed < -0.8 ? speed * 0.8 : speed;
     double rotation = m_rotation.get() * throttle;

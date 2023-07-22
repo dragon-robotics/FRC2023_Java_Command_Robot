@@ -111,8 +111,8 @@ public class RobotContainer {
     // 4. Ground Intake Upright Cone //
     // 6. Hybrid Grid - Score Cone //
     // 3. Human Single Substation - Intake Cone //
-    // 9. Level 3 Grid - Score Cone** //
     // 7. Level 2 Grid - Score Cube //
+    // 9. Level 3 Grid - Score Cone** //
 
     m_armWristSubsystem.setDefaultCommand(new ArmWristTestCommand(
         m_armWristSubsystem,
