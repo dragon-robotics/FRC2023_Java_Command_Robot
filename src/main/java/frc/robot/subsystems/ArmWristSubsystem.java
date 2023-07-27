@@ -33,9 +33,11 @@ public class ArmWristSubsystem extends SubsystemBase {
   private final SparkMaxPIDController m_wristMotorPidController;
   private final SparkMaxAbsoluteEncoder m_wristMotorAbsEncoder;
 
+  NetworkTableEntry m_armRawPositionEntry = NetworkTableInstance.getDefault().getTable("troubleshooting").getEntry("Arm Raw Position");
   NetworkTableEntry m_armPositionEntry = NetworkTableInstance.getDefault().getTable("troubleshooting").getEntry("Arm Position");
   NetworkTableEntry m_armMotorVoltageEntry = NetworkTableInstance.getDefault().getTable("troubleshooting").getEntry("Arm Voltage");
   NetworkTableEntry m_armMotorCurrentEntry = NetworkTableInstance.getDefault().getTable("troubleshooting").getEntry("Arm Current");
+  NetworkTableEntry m_wristRawPositionEntry = NetworkTableInstance.getDefault().getTable("troubleshooting").getEntry("Wrist Raw Position");
   NetworkTableEntry m_wristPositionEntry = NetworkTableInstance.getDefault().getTable("troubleshooting").getEntry("Wrist Position");
   NetworkTableEntry m_wristMotorVoltageEntry = NetworkTableInstance.getDefault().getTable("troubleshooting").getEntry("Wrist Voltage");
   NetworkTableEntry m_wristMotorCurrentEntry = NetworkTableInstance.getDefault().getTable("troubleshooting").getEntry("Wrist Current");
@@ -165,18 +167,20 @@ public class ArmWristSubsystem extends SubsystemBase {
       // Calculate feed forward based on angle to counteract gravity
       double cosineScalar = Math.cos(getWristPosition());
       double feedForward = WristMotorConstants.GRAVITY_FF * cosineScalar;
-      m_armMotorPidController.setReference(
+      m_wristMotorPidController.setReference(
           radiansToEncoderRotations(targetWristPosition, "WRIST"),
           ControlType.kSmartMotion, 0, feedForward, ArbFFUnits.kPercentOut);
     }
 
     // Added code to record arm and wrist data //
-    m_armPositionEntry.setNumber(m_armMotorAbsEncoder.getPosition());     // Get Arm Position
-    m_armPositionEntry.setNumber(m_armMotor.getBusVoltage());             // Get Arm Voltage
-    m_armPositionEntry.setNumber(m_armMotor.getOutputCurrent());          // Get Arm Current
-    m_wristPositionEntry.setNumber(m_wristMotorAbsEncoder.getPosition()); // Get Wrist Position
-    m_wristPositionEntry.setNumber(m_wristMotor.getBusVoltage());         // Get Wrist Voltage
-    m_wristPositionEntry.setNumber(m_wristMotor.getOutputCurrent());      // Get Wrist Current
+    m_armRawPositionEntry.setNumber(m_armMotorAbsEncoder.getPosition());      // Get Raw Arm Position
+    m_armPositionEntry.setNumber(getArmPosition());                           // Get Arm Position Relative to Encoder Offset
+    m_armMotorVoltageEntry.setNumber(m_armMotor.getBusVoltage());             // Get Arm Voltage
+    m_armMotorCurrentEntry.setNumber(m_armMotor.getOutputCurrent());          // Get Arm Current
+    m_wristRawPositionEntry.setNumber(m_wristMotorAbsEncoder.getPosition());  // Get Raw Wrist Position
+    m_wristPositionEntry.setNumber(getWristPosition());                       // Get Raw Wrist Position
+    m_wristMotorVoltageEntry.setNumber(m_wristMotor.getBusVoltage());         // Get Wrist Voltage
+    m_wristMotorCurrentEntry.setNumber(m_wristMotor.getOutputCurrent());      // Get Wrist Current
   }
 
   /* Arm Methods */
@@ -255,10 +259,27 @@ public class ArmWristSubsystem extends SubsystemBase {
    * @return equivalent encoder position, in rotations
    */
   static double radiansToEncoderRotations(double radians, String appendage) {
-    if (appendage == "ARM"){
+    if (appendage.equals("ARM")){
       return radiansToRotations(radians) - ArmMotorConstants.ENCODER_OFFSET;
     } else {
       return radiansToRotations(radians) - WristMotorConstants.ENCODER_OFFSET;
     }
   }
+
+  /**
+   * Stop the wrist motor
+   */
+  public void stopWrist() {
+    targetWristPosition = null;
+    m_wristMotor.stopMotor();
+  }
+
+  /**
+   * Stop the wrist motor
+   */
+  public void stopArm() {
+    targetArmPosition = null;
+    m_armMotor.stopMotor();
+  }
+
 }

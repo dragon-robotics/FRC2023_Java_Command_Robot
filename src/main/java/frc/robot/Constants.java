@@ -79,14 +79,14 @@ public final class Constants {
     public static final float LIMIT_TOP = 0.8995f;
 
     // Absolute Encoder Offset - @TODO to be tuned //
-    public static final double ENCODER_OFFSET = -0.58342d;
+    public static final double ENCODER_OFFSET = -0.7219101d;
 
     // Gravity Feedforward - @TODO to be tuned //
     public static final double GRAVITY_FF = 0.01;
 
     // PID coefficients - @TODO to be tuned //
     public static final double kP = 5e-5;
-    public static final double kI = 1e-6;
+    public static final double kI = 0;
     public static final double kD = 0;
     public static final double kIz = 0;
     public static final double kFF = 0.000156;
@@ -107,7 +107,7 @@ public final class Constants {
     public static final int NEO_WRIST = 10;
 
     // Smart Motion Slot //
-    public static final int SMART_MOTION_SLOT = 1;
+    public static final int SMART_MOTION_SLOT = 0;
 
     // Voltage Compensation //
     public static final double VOLTAGE_COMP = 10;
@@ -120,14 +120,14 @@ public final class Constants {
     public static final float LIMIT_TOP = 0.8995f;
 
     // Absolute Encoder Offset - @TODO to be tuned //
-    public static final double ENCODER_OFFSET = -0.58342d;
+    public static final double ENCODER_OFFSET = -0.7219101d;
 
     // Gravity Feedforward - @TODO to be tuned //
-    public static final double GRAVITY_FF = 0.01;
+    public static final double GRAVITY_FF = 0.1;
 
     // PID coefficients - @TODO to be tuned
-    public static final double kP = 5e-5;
-    public static final double kI = 1e-6;
+    public static final double kP = 0.0007;
+    public static final double kI = 0;
     public static final double kD = 0;
     public static final double kIz = 0;
     public static final double kFF = 0.000156;

@@ -24,7 +24,7 @@ public class Robot extends TimedRobot {
   private ShuffleboardSubsystem m_shuffleboardSubsystem;
   
   public Robot() {
-    super(0.01);
+    // super(0.01);
   }
 
   /**

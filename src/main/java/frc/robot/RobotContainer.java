@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import static edu.wpi.first.wpilibj2.command.Commands.startEnd;
+
 import frc.robot.AutoLoader.AutoCommand;
 import frc.robot.commands.Auto.CommunityExitCommand;
 import frc.robot.commands.Auto.ScoreConeAndBalanceCommand;
@@ -64,7 +66,7 @@ public class RobotContainer {
   private final JoystickButton m_intakeUp100OperatorButton = new JoystickButton(m_operatorController, Constants.BUMPER_LEFT);
   private final JoystickButton m_intakeDown100OperatorButton = new JoystickButton(m_operatorController, Constants.BUMPER_RIGHT);
   private final JoystickButton m_armWristNeutralOperatorButton = new JoystickButton(m_operatorController, Constants.BTN_A);
-  private final JoystickButton m_armWristNeutralOperatorButton = new JoystickButton(m_operatorController, Constants.BTN_A);
+  private final JoystickButton m_armWristLvl1CubeOperatorButton = new JoystickButton(m_operatorController, Constants.BTN_B);
 
   // Create the auto loader class to load everything for us //
   private final AutoLoader m_autoLoader = new AutoLoader();
@@ -104,7 +106,20 @@ public class RobotContainer {
 
     // Operator Arm / Wrist Control Setpoints //
     // Neutral Position //
+    m_armWristNeutralOperatorButton.whileTrue(
+      startEnd(
+        () -> m_armWristSubsystem.moveWristPosition(0.0),
+        m_armWristSubsystem::stopWrist,
+        m_armWristSubsystem)
+    );
+
     // 2. Human Single Substation - Intake Cube //
+    m_armWristLvl1CubeOperatorButton.whileTrue(
+      startEnd(
+        () -> m_armWristSubsystem.moveWristPosition(0.3),
+        m_armWristSubsystem::stopWrist,
+        m_armWristSubsystem)
+    );
     // 5. Hybrid Grid - Score Cube //
     // 1. Human Double Substation - Intake Cone //
     // 8. Level 2 Grid - Score Cone //
@@ -118,7 +133,7 @@ public class RobotContainer {
         m_armWristSubsystem,
         // () -> m_operatorController.getRawAxis(Constants.TRIGGER_RIGHT),  // Arm Rotate Up
         () -> m_operatorController.getRawAxis(Constants.TRIGGER_LEFT),  // Arm Rotate Up/Down
-        () -> m_operatorController.getRawButton(Constants.BUMPER_RIGHT),  // Arm Rotate Reverse
+        () -> m_operatorController.getRawButton(Constants.BTN_Y),  // Arm Rotate Reverse
         () -> -m_operatorController.getRawAxis(Constants.STICK_LEFT_Y)   // Wrist Rotation
       )
     );
