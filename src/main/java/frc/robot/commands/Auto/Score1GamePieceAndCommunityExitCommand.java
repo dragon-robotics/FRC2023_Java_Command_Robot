@@ -5,15 +5,24 @@
 package frc.robot.commands.Auto;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.subsystems.ArmWristSubsystem;
+import frc.robot.subsystems.DrivetrainSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class Score1GamePieceAndCommunityExitCommand extends SequentialCommandGroup {
   /** Creates a new Score1GamePieceAndCommunityExitCommand. */
-  public Score1GamePieceAndCommunityExitCommand() {
+  public Score1GamePieceAndCommunityExitCommand(
+    DrivetrainSubsystem drivetrain,
+    ArmWristSubsystem armWrist,
+    IntakeSubsystem intake) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands();
+    addCommands(
+      new MoveArmCommand(armWrist, 1, 1),
+      new MoveWristCommand(armWrist, 0.5, 0.5)
+    );
   }
 }

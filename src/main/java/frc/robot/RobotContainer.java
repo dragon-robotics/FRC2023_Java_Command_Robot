@@ -8,6 +8,8 @@ import static edu.wpi.first.wpilibj2.command.Commands.startEnd;
 
 import frc.robot.AutoLoader.AutoCommand;
 import frc.robot.commands.Auto.CommunityExitCommand;
+import frc.robot.commands.Auto.MoveArmCommand;
+import frc.robot.commands.Auto.Score1GamePieceAndCommunityExitCommand;
 import frc.robot.commands.Auto.ScoreConeAndBalanceCommand;
 import frc.robot.commands.Auto.ScoreConeAndExitCommunityCommand;
 import frc.robot.commands.General.IntakeDown100Command;
@@ -67,6 +69,7 @@ public class RobotContainer {
   private final JoystickButton m_intakeDown100OperatorButton = new JoystickButton(m_operatorController, Constants.BUMPER_RIGHT);
   private final JoystickButton m_armWristNeutralOperatorButton = new JoystickButton(m_operatorController, Constants.BTN_A);
   private final JoystickButton m_armWristLvl1CubeOperatorButton = new JoystickButton(m_operatorController, Constants.BTN_B);
+  private final JoystickButton m_armWristDoubleStationOperatorButton = new JoystickButton(m_operatorController, Constants.BTN_Y);
 
   // Create the auto loader class to load everything for us //
   private final AutoLoader m_autoLoader = new AutoLoader();
@@ -90,6 +93,7 @@ public class RobotContainer {
    */
   private void configureBindings() {
     // Set default command to arcade drive when in teleop
+
     m_drivetrainSubsystem.setDefaultCommand(
         new ArcadeDriveCommand(
             m_drivetrainSubsystem,
@@ -108,20 +112,22 @@ public class RobotContainer {
     // Neutral Position //
     m_armWristNeutralOperatorButton.whileTrue(
       startEnd(
-        () -> m_armWristSubsystem.moveWristPosition(0.0),
+        () -> m_armWristSubsystem.moveArmPosition(-1),
         m_armWristSubsystem::stopWrist,
         m_armWristSubsystem)
     );
 
     // 2. Human Single Substation - Intake Cube //
-    m_armWristLvl1CubeOperatorButton.whileTrue(
-      startEnd(
-        () -> m_armWristSubsystem.moveWristPosition(0.3),
-        m_armWristSubsystem::stopWrist,
-        m_armWristSubsystem)
-    );
+    // m_armWristLvl1CubeOperatorButton.whileTrue(
+    //   startEnd(
+    //     () -> m_armWristSubsystem.moveWristPosition(0.3),
+    //     m_armWristSubsystem::stopWrist,
+    //     m_armWristSubsystem)
+    // );
     // 5. Hybrid Grid - Score Cube //
     // 1. Human Double Substation - Intake Cone //
+    m_armWristDoubleStationOperatorButton.toggleOnTrue(
+      new MoveArmCommand(m_armWristSubsystem, 1, 1.2));
     // 8. Level 2 Grid - Score Cone //
     // 4. Ground Intake Upright Cone //
     // 6. Hybrid Grid - Score Cone //
@@ -165,6 +171,8 @@ public class RobotContainer {
         return new ScoreConeAndBalanceCommand(m_drivetrainSubsystem, m_intakeSubsystem);
       case SCORE_CONE_AND_COMMUNITY_EXIT:
         return new ScoreConeAndExitCommunityCommand(m_drivetrainSubsystem, m_intakeSubsystem);
+      case SCORE_LVL2_CONE_AND_COMMUNITY_EXIT:
+      return new Score1GamePieceAndCommunityExitCommand(m_drivetrainSubsystem, m_armWristSubsystem, m_intakeSubsystem);
       case EXAMPLE_TRAJECTORY:
         // Create a voltage constraint to ensure we don't accelerate too fast
         DifferentialDriveVoltageConstraint autoVoltageConstraint = new DifferentialDriveVoltageConstraint(

@@ -75,17 +75,17 @@ public final class Constants {
     public static final int SMART_CURRENT_LIMIT = 20;
 
     // Soft Limit - @TODO to be tuned //
-    public static final float LIMIT_BOTTOM = 0.5804f;
-    public static final float LIMIT_TOP = 0.8995f;
+    public static final float LIMIT_BOTTOM = -1f;
+    public static final float LIMIT_TOP = 1f;
 
     // Absolute Encoder Offset - @TODO to be tuned //
-    public static final double ENCODER_OFFSET = -0.7219101d;
+    public static final double ENCODER_OFFSET = 0.1d;
 
     // Gravity Feedforward - @TODO to be tuned //
     public static final double GRAVITY_FF = 0.01;
 
     // PID coefficients - @TODO to be tuned //
-    public static final double kP = 5e-5;
+    public static final double kP = 0.01;
     public static final double kI = 0;
     public static final double kD = 0;
     public static final double kIz = 0;
